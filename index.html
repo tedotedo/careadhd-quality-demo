@@ -15,7 +15,7 @@
 <header class="topbar"><div class="wrap">
   <a class="brand" href="#top"><span class="dot"></span><span>Routine data → better care<small>Concept demo · Dr Mark Aszkenasy</small></span></a>
   <nav class="nav" id="nav">
-    <a href="#kpi">KPIs</a><a href="#pathway">Pathway</a><a href="#neuro">Autism + ADHD</a><a href="#outcomes">Outcomes</a><a href="#safety">Safety</a><a href="#predict">Prediction</a><a href="#nlp">AI on letters</a><a href="#experience">Experience</a><a href="#qi">Improvement</a><a href="#governance">Governance</a><a href="#bangalore">UK + Bengaluru</a><a href="#help">How I can help</a>
+    <a href="#kpi">KPIs</a><a href="#audit">NICE audit</a><a href="#pathway">Pathway</a><a href="#neuro">Autism + ADHD</a><a href="#voice">Voice + transition</a><a href="#outcomes">Outcomes</a><a href="#safety">Safety</a><a href="#predict">Prediction</a><a href="#nlp">AI on letters</a><a href="#experience">Experience</a><a href="#qi">Improvement</a><a href="#governance">Governance</a><a href="#bangalore">UK + Bengaluru</a><a href="#future">Future</a><a href="#help">How I can help</a>
   </nav>
 </div></header>
 
@@ -58,9 +58,9 @@
   <p>Thirteen measures that matter to patients, families, clinicians and commissioners: waits, safety, outcomes, experience and productivity, each with a target and a trend. Filter by service, pathway and age, and click any tile to see its monthly trend.</p></div>
   <span class="synthetic">Illustrative synthetic data, no real patient information</span></div>
   <div class="filters">
-    <label>Service<select id="kf_service"><option value="all">All services</option><option value="adult">Adults (18+)</option><option value="child">Under 18s</option></select></label>
-    <label>Pathway<select id="kf_path"><option value="all">All pathways</option><option value="adhd">ADHD only</option><option value="nd">Combined autism + ADHD (7+)</option></select></label>
-    <label>Age band<select id="kf_age"><option value="all">All ages</option><option>7–11</option><option>12–17</option><option>18–25</option><option>26–40</option><option>41+</option></select></label>
+    <label>Service<select id="kf_service" data-kf="kf_service"><option value="all">All services</option><option value="adult">Adults (18+)</option><option value="child">Under 18s</option></select></label>
+    <label>Pathway<select id="kf_path" data-kf="kf_path"><option value="all">All pathways</option><option value="adhd">ADHD only</option><option value="nd">Combined autism + ADHD (7+)</option></select></label>
+    <label>Age band<select id="kf_age" data-kf="kf_age"><option value="all">All ages</option><option>7–11</option><option>12–17</option><option>18–25</option><option>26–40</option><option>41+</option></select></label>
     <label>Reporting period<select id="kf_period"><option value="3">Last 3 months</option><option value="6">Last 6 months</option></select></label>
     <span class="small muted" id="kpiCount"></span>
   </div>
@@ -80,9 +80,49 @@
   </div>
 </div></section>
 
+<!-- AUDIT -->
+<section class="block tint" id="audit"><div class="wrap">
+  <div class="section-head"><div><span class="num">01 · NICE guidelines × data</span><h2>Automatic guideline-adherence audit, every day</h2>
+  <p>Specific NICE recommendations become measurable audit standards, checked continuously against routine data rather than in a once-a-year notes audit. Each standard links to the exact NICE recommendation. Click any row to see the synthetic patients who missed it, and why: a ready-made worklist.</p></div>
+  <span class="synthetic">Illustrative synthetic data, no real patient information</span></div>
+  <div class="filters">
+    <label>Service<select data-kf="kf_service"><option value="all">All services</option><option value="adult">Adults (18+)</option><option value="child">Under 18s</option></select></label>
+    <label>Pathway<select data-kf="kf_path"><option value="all">All pathways</option><option value="adhd">ADHD only</option><option value="nd">Combined autism + ADHD (7+)</option></select></label>
+    <label>Age band<select data-kf="kf_age"><option value="all">All ages</option><option>7–11</option><option>12–17</option><option>18–25</option><option>26–40</option><option>41+</option></select></label>
+    <label>Guideline<select id="af_g"><option value="all">All guidelines</option><option>NG87</option><option>CG128</option><option>CG170</option><option>CG142</option><option>NG43</option></select></label>
+    <span class="small muted">Filters are shared with the KPI dashboard. Compliance shown for the last 6 months.</span>
+  </div>
+  <div class="kpis" id="auditKpis"></div>
+  <div class="card"><div class="tablewrap"><table class="audit" id="auditTable"><thead><tr><th>Audit standard</th><th>NICE source</th><th>Met / eligible</th><th>Compliance</th><th>Target</th><th>18-month trend</th></tr></thead><tbody></tbody></table></div>
+    <div class="small muted mt">Targets are illustrative and would be agreed with clinical leads. Wording paraphrases NICE; follow the links for the full recommendation.</div></div>
+  <div class="card mt" id="drill"><h3 id="drillTitle">Worklist</h3><div class="sub" id="drillSub"></div><div class="tablewrap"><table id="drillTable"><thead><tr><th>Pseudonymised ID</th><th>Age</th><th>Pathway</th><th>Reason flagged</th><th>Evidence searched</th><th>Suggested action</th></tr></thead><tbody></tbody></table></div>
+    <div class="toolbar mt"><button class="btn ghost" id="drillCsv" type="button">Download worklist (CSV, synthetic)</button><span class="small muted" id="drillMore"></span></div></div>
+  <h3 class="mt2">How it works</h3>
+  <div class="cards c4">
+    <div class="card flat"><span class="pill">1 · Encode</span><h3>Recommendations become rules</h3><p class="small">Each NICE recommendation is written as a precise rule: who it applies to, what counts as met, and the time window, agreed with clinical leads.</p></div>
+    <div class="card flat"><span class="pill">2 · Structured data</span><h3>Checked against routine records</h3><p class="small">Observations, prescriptions, appointments, questionnaires and referral dates are checked automatically, every night.</p></div>
+    <div class="card flat"><span class="pill pink">3 · Free text</span><h3>Evidence found in letters</h3><p class="small">Much good practice is only written in letters. Language AI looks for it (for example the child's own views, or a sleep plan) so a missing tick box isn't counted as a failure. <a href="#nlp">See the AI-on-letters demo</a>.</p></div>
+    <div class="card flat"><span class="pill amber">4 · Sign-off</span><h3>Clinicians confirm and act</h3><p class="small">Flags go to the responsible clinician to confirm or dismiss, which also trains the rules. Results feed governance reports and improvement projects.</p></div>
+  </div>
+  <div class="cards c2 mt">
+    <div class="card flat"><h3>Example rule</h3><pre class="rule">Standard   BP and heart rate before and after each dose change
+Source     NICE NG87 recommendation 1.8.9
+Applies to everyone with a dose change during titration
+Met if     BP and HR recorded within 14 days before
+           and 28 days after the change  (windows set locally)
+Evidence   observations · home BP readings · letters (AI)
+Owner      titration team · reviewed monthly</pre></div>
+    <div class="card flat"><h3>Keeping up with NICE</h3><ul class="tick small">
+      <li>Every rule records the guideline, recommendation number and version it was built from.</li>
+      <li>When NICE updates a guideline (NG87 has been amended since 2018, most recently adding QbTest in 2024), affected rules are reviewed, re-tested and re-signed by a clinical lead before going live.</li>
+      <li>A change log shows commissioners and the CQC exactly what was measured, and when.</li>
+      <li>The same engine can carry local standards, shared care protocols and CQC evidence.</li></ul></div>
+  </div>
+</div></section>
+
 <!-- 1 PATHWAY -->
 <section class="block alt" id="pathway"><div class="wrap">
-  <div class="section-head"><div><span class="num">01 · Pathway flow</span><h2>Where do people wait, and where do we lose them?</h2>
+  <div class="section-head"><div><span class="num">02 · Pathway flow</span><h2>Where do people wait, and where do we lose them?</h2>
   <p>Following every synthetic referral from GP referral to a stable dose and shared care shows where time is spent and where people drop out. The biggest gains often come from unglamorous steps such as getting pre-assessment forms back.</p></div>
   <span class="synthetic">Illustrative synthetic data, no real patient information</span></div>
   <div class="toolbar"><div class="seg" id="pathSeg"><button data-k="adult" class="on">Adults (18+)</button><button data-k="cyp">Under 18s: ADHD</button><button data-k="nd">Under 18s: combined autism + ADHD</button></div></div>
@@ -96,7 +136,7 @@
 
 <!-- 2 NEURO -->
 <section class="block tint" id="neuro"><div class="wrap">
-  <div class="section-head"><div><span class="num">02 · Combined neurodevelopmental pathway</span><h2>Autism and ADHD together, for children aged 7 and over</h2>
+  <div class="section-head"><div><span class="num">03 · Combined neurodevelopmental pathway</span><h2>Autism and ADHD together, for children aged 7 and over</h2>
   <p>Autism and ADHD often occur together, and each changes how the other presents and responds to treatment. A combined pathway with shared data lets us see those interactions clearly, and plan care around the whole child rather than one diagnosis at a time.</p></div>
   <span class="synthetic">Illustrative synthetic data, no real patient information</span></div>
   <div class="nd-hero">
@@ -148,9 +188,46 @@
   </div>
 </div></section>
 
+<!-- VOICE + TRANSITION -->
+<section class="block alt" id="voice"><div class="wrap">
+  <div class="section-head"><div><span class="num">04 · Voice of the child and transition</span><h2>Hearing children, and no cliff edge at 18</h2>
+  <p>Two things the NHS is often criticised for: children's own views getting lost behind parent and school reports, and young people falling through the gap between children's and adults' services. Both can be measured, and both can be improved.</p></div>
+  <span class="synthetic">Illustrative synthetic data, no real patient information</span></div>
+
+  <h3>4a · The child's own voice</h3>
+  <p class="muted" style="max-width:52em">NICE NG87 asks clinicians to take children's views into account when judging impairment (<a href="https://www.nice.org.uk/guidance/ng87/chapter/Recommendations#ng87-1_3_6" target="_blank" rel="noopener">1.3.6</a>) and to encourage children to give their own account before treatment starts (<a href="https://www.nice.org.uk/guidance/ng87/chapter/Recommendations#ng87-1_5_4" target="_blank" rel="noopener">1.5.4</a>). Child-rated goals, outcomes and experience sit here alongside parent and teacher ratings.</p>
+  <div class="kpis" id="voiceKpis"></div>
+  <div class="cards c2">
+    <div class="card"><h3>Child and parent see change differently</h3><div class="sub">"How much better are things?" (0–10) at 12 weeks: child vs parent. Points outside the band differ by 3 or more.</div><div class="chartbox"><canvas id="diverge"></canvas></div></div>
+    <div class="card"><h3>Whose goals?</h3><div class="sub">Goal-Based Outcomes: themes of goals set by children themselves vs by parents</div><div class="chartbox"><canvas id="goals"></canvas></div></div>
+  </div>
+  <div class="cards c2 mt">
+    <div class="card"><h3>Child-rated experience</h3><div class="sub">Age-appropriate survey with picture scales: % answering positively, child vs parent</div><div class="chartbox"><canvas id="childExp"></canvas></div></div>
+    <div class="card"><h3>Is the child's voice in the record?</h3><div class="sub">% of letters where the child's own views are documented (found by AI on letters), and accessible formats offered to autistic children</div><div class="chartbox"><canvas id="voiceTrend"></canvas></div></div>
+  </div>
+  <div class="card flat mt"><h3>Accessible by design for autistic children</h3>
+    <div class="cards c4 small">
+      <div><b>Visual appointment guide</b><br>Photos of who they'll meet and what will happen, sent in advance.</div>
+      <div><b>Picture and emoji scales</b><br>Child-rated outcomes and experience without long questionnaires.</div>
+      <div><b>One-page profile</b><br>"All about me" and a communication passport, as NG43 1.2.12 suggests.</div>
+      <div><b>Choice of how to answer</b><br>Type in the chat, draw, or speak; breaks and sensory-friendly video appointments.</div>
+    </div><div class="insight" id="voiceInsight"></div></div>
+
+  <h3 class="mt2">4b · Transition to adult services</h3>
+  <div class="nd-hero"><h3>Care ADHD runs both under-18 and adult services</h3><p style="margin:0">That makes seamless, in-house transition possible: one organisation, one record, one prescribing team, and an adult clinician who can meet the young person well before their 18th birthday. Few NHS areas can offer that. Aligned with NICE NG43 (transition from children's to adults' services) and NG87 <a style="color:#fff" href="https://www.nice.org.uk/guidance/ng87/chapter/Recommendations#ng87-1_1_4" target="_blank" rel="noopener">1.1.4</a>–<a style="color:#fff" href="https://www.nice.org.uk/guidance/ng87/chapter/Recommendations#ng87-1_1_5" target="_blank" rel="noopener">1.1.5</a>.</p></div>
+  <div class="timeline" id="timeline"></div>
+  <div class="kpis mt" id="transKpis"></div>
+  <div class="cards c21">
+    <div class="card"><h3>The cliff edge at 18</h3><div class="sub">% of young people still engaged with ADHD care, by months from 18th birthday: planned transition vs unplanned transfer (synthetic cohort)</div><div class="chartbox tall"><canvas id="cliff"></canvas></div></div>
+    <div class="card"><h3>What planning changes</h3><div class="sub">Planned (plan ≥6 months ahead, named worker, joint handover) vs unplanned</div><div class="chartbox tall"><canvas id="transOut"></canvas></div></div>
+  </div>
+  <div class="card mt"><h3>Due to transfer in the next 6 months: who needs most support?</h3><div class="sub">Predicted risk of missing the first adult appointment, using the engagement model from section 07. Pseudonymised synthetic IDs.</div>
+    <div class="tablewrap"><table id="transTable"><thead><tr><th>ID</th><th>Turns 18</th><th>Readiness score</th><th>Plan in place</th><th>Named worker</th><th>Predicted risk</th><th>Suggested action</th></tr></thead><tbody></tbody></table></div></div>
+</div></section>
+
 <!-- 3 OUTCOMES -->
 <section class="block alt" id="outcomes"><div class="wrap">
-  <div class="section-head"><div><span class="num">03 · Outcomes</span><h2>Are people actually getting better?</h2>
+  <div class="section-head"><div><span class="num">05 · Outcomes</span><h2>Are people actually getting better?</h2>
   <p>Validated measures collected at baseline and each review become a routine outcome dataset. That turns individual reviews into evidence about which treatments work best, for whom.</p></div>
   <span class="synthetic">Illustrative synthetic data, no real patient information</span></div>
   <div class="toolbar"><div class="seg" id="outSeg"><button data-k="adult" class="on">Adults: ASRS + WFIRS</button><button data-k="child">Children: SNAP-IV + WFIRS-P</button></div></div>
@@ -164,7 +241,7 @@
 
 <!-- 4 SAFETY -->
 <section class="block" id="safety"><div class="wrap">
-  <div class="section-head"><div><span class="num">04 · Titration safety</span><h2>Monitoring that never forgets</h2>
+  <div class="section-head"><div><span class="num">06 · Titration safety</span><h2>Monitoring that never forgets</h2>
   <p>Blood pressure, heart rate, weight and height are recorded at every titration step. Simple rules, set by clinicians and aligned with NICE NG87 monitoring advice, can flag readings that need attention and observations that are overdue, so nothing waits for the next appointment.</p></div>
   <span class="synthetic">Illustrative synthetic data, no real patient information</span></div>
   <div class="kpis" id="safeKpis"></div>
@@ -179,7 +256,7 @@
 
 <!-- 5 PREDICT -->
 <section class="block alt" id="predict"><div class="wrap">
-  <div class="section-head"><div><span class="num">05 · Explainable prediction</span><h2>Who might need extra help to stay engaged?</h2>
+  <div class="section-head"><div><span class="num">07 · Explainable prediction</span><h2>Who might need extra help to stay engaged?</h2>
   <p>A transparent model, trained live in your browser on the synthetic cohort, estimates the chance that someone does not attend (DNA) their next titration appointment. The purpose is to <b>offer more support</b> (a call, a flexible slot, a reminder by their preferred channel), never to deprioritise anyone.</p></div>
   <span class="synthetic">Illustrative synthetic data, no real patient information</span></div>
   <div class="cards c12">
@@ -209,14 +286,14 @@
 
 <!-- 6 NLP -->
 <section class="block" id="nlp"><div class="wrap">
-  <div class="section-head"><div><span class="num">06 · AI on free text</span><h2>Turning clinic letters into structured, searchable data</h2>
+  <div class="section-head"><div><span class="num">08 · AI on free text</span><h2>Turning clinic letters into structured, searchable data</h2>
   <p>Much of the richest information sits in letters and reports. Language AI can summarise them and pull out coded fields (symptoms, autism features, sleep, co-occurring conditions, medication, risk) for a clinician to check and confirm. Edit the letter and run it again.</p></div>
   <span class="synthetic simulated">Simulated demo: simple rules running in your browser, synthetic letter</span></div>
   <div class="toolbar"><div class="seg" id="letterSeg"><button data-k="0" class="on">Child, 9: ADHD + autism query</button><button data-k="1">Adult, 31: titration review</button><button data-k="2">Teen, 14: sleep and anxiety</button></div>
     <button class="btn primary" id="runNlp">Extract and summarise</button></div>
   <div class="cards c2">
     <div class="card"><h3>Synthetic clinic letter</h3><div class="sub">Invented text, no real person.</div><textarea id="letter" spellcheck="false"></textarea>
-      <div class="legend mt"><span class="hl symptom">ADHD feature</span><span class="hl autism">Autism feature</span><span class="hl sleep">Sleep</span><span class="hl comorb">Co-occurring</span><span class="hl med">Medication</span><span class="hl school">School / function</span><span class="hl se">Side effect</span><span class="hl risk">Risk / safeguarding</span></div></div>
+      <div class="legend mt"><span class="hl symptom">ADHD feature</span><span class="hl autism">Autism feature</span><span class="hl sleep">Sleep</span><span class="hl comorb">Co-occurring</span><span class="hl med">Medication</span><span class="hl school">School / function</span><span class="hl se">Side effect</span><span class="hl voice">Child's views</span><span class="hl risk">Risk / safeguarding</span></div></div>
     <div class="card"><h3>Structured output for clinician review</h3><div class="progress"><i id="nlpProg"></i></div><div class="annot" id="nlpOut"><p class="muted">Press <b>Extract and summarise</b>.</p></div></div>
   </div>
   <p class="small muted mt">In production this would use a governed language model inside Care ADHD's own secure environment, mapped to SNOMED CT, with every extracted field confirmed by a clinician (human in the loop) and accuracy audited against a gold-standard sample.</p>
@@ -224,7 +301,7 @@
 
 <!-- 7 EXPERIENCE -->
 <section class="block alt" id="experience"><div class="wrap">
-  <div class="section-head"><div><span class="num">07 · Patient and family experience</span><h2>What are people telling us?</h2>
+  <div class="section-head"><div><span class="num">09 · Patient and family experience</span><h2>What are people telling us?</h2>
   <p>Thousands of free-text comments can be grouped into themes and scored for sentiment automatically, then tracked month by month. It keeps the voices of patients and families at the centre of improvement work.</p></div>
   <span class="synthetic">Illustrative synthetic data, no real patient information</span></div>
   <div class="cards c21">
@@ -236,7 +313,7 @@
 
 <!-- 8 QI -->
 <section class="block tint" id="qi"><div class="wrap">
-  <div class="section-head"><div><span class="num">08 · Quality improvement</span><h2>Telling real improvement from noise</h2>
+  <div class="section-head"><div><span class="num">10 · Quality improvement</span><h2>Telling real improvement from noise</h2>
   <p>Statistical process control (SPC) charts are the NHS standard for showing whether a change made a difference. Control limits separate everyday variation from a genuine shift. Funnel plots compare teams fairly, allowing for their size.</p></div>
   <span class="synthetic">Illustrative synthetic data, no real patient information</span></div>
   <div class="toolbar"><div class="seg" id="spcSeg"><button data-k="obs" class="on">Monitoring completed on time</button><button data-k="forms">Days to return forms</button><button data-k="nd">Autism assessment within 3 months</button></div></div>
@@ -249,7 +326,7 @@
 
 <!-- 9 GOVERNANCE -->
 <section class="block alt" id="governance"><div class="wrap">
-  <div class="section-head"><div><span class="num">09 · Governance</span><h2>Safe, lawful and trusted by design</h2>
+  <div class="section-head"><div><span class="num">11 · Governance</span><h2>Safe, lawful and trusted by design</h2>
   <p>None of this is worth doing unless patients, families, clinicians and commissioners can trust it. Governance comes first, not last.</p></div></div>
   <div class="gov">
     <div class="card"><h3><span class="icon">§</span>UK GDPR and the Data Protection Act 2018</h3><p class="small">Lawful basis and special category condition agreed with the Data Protection Officer. Clear privacy information for patients and families. Respect the National Data Opt-out where it applies.</p></div>
@@ -264,7 +341,7 @@
 
 <!-- 10 BANGALORE -->
 <section class="block" id="bangalore"><div class="wrap">
-  <div class="section-head"><div><span class="num">10 · UK + Bengaluru</span><h2>One quality team, two time zones</h2>
+  <div class="section-head"><div><span class="num">12 · UK + Bengaluru</span><h2>One quality team, two time zones</h2>
   <p>Care ADHD's Global Capability Centre in Bengaluru already brings together engineers, data scientists and clinicians. Paired with UK clinical leadership, it can run a near round-the-clock learning cycle, and turn the results into published evidence that raises Care ADHD's profile in both countries.</p></div></div>
   <div class="card">
     <h3>A follow-the-sun analytics day (UK time, British Summer Time)</h3>
@@ -290,9 +367,37 @@
   </div>
 </div></section>
 
+<!-- FUTURE -->
+<section class="block tint" id="future"><div class="wrap">
+  <div class="section-head"><div><span class="num">13 · Possible future directions</span><h2>Sleep and eating: the next frontier</h2>
+  <p>Not part of today's service, but a natural next step. Sleep problems and restricted eating, including ARFID (avoidant/restrictive food intake disorder), are common in autism and ADHD, and both interact with stimulant medication. Routine data could spot problems early and open up new services.</p></div>
+  <span class="synthetic">Illustrative synthetic data, no real patient information</span></div>
+  <div class="cards c3">
+    <div class="card"><h3>How common? (synthetic)</h3><div class="sub">% screening positive at baseline, by pathway</div><div class="chartbox short"><canvas id="futPrev"></canvas></div></div>
+    <div class="card"><h3>Appetite, ARFID and growth</h3><div class="sub">Mean change in weight centile after starting a stimulant (children)</div><div class="chartbox short"><canvas id="futWeight"></canvas></div></div>
+    <div class="card"><h3>Sleep vs dose timing</h3><div class="sub">Extra minutes to fall asleep, by time of last stimulant dose</div><div class="chartbox short"><canvas id="futSleep"></canvas></div></div>
+  </div>
+  <div class="cards c3 mt">
+    <div class="card flat"><h3>Routine screening</h3><ul class="tick small">
+      <li>Sleep: Children's Sleep Habits Questionnaire (CSHQ) at baseline and each review, plus sleep diaries (NG87 1.8.17).</li>
+      <li>Eating: an ARFID screen such as the PARDI-AR-Q (parent version 4+, self-report 14+) or the Nine Item ARFID Screen (NIAS).</li>
+      <li>Results feed the titration plan and the <a href="#safety">safety worklist</a>.</li></ul></div>
+    <div class="card flat"><h3>Early-warning flags</h3><ul class="tick small">
+      <li>Positive ARFID screen plus stimulant: dietetic advice before titration, closer weight checks.</li>
+      <li>Weight falling across centile lines (NG87 1.8.5–1.8.6).</li>
+      <li>Sleep onset delayed by more than an hour after a dose change: review dose timing.</li>
+      <li>Melatonin without a sleep plan (CG170 1.7.6–1.7.7): see the <a href="#audit">NICE audit</a>.</li></ul></div>
+    <div class="card flat"><h3>New services and research</h3><ul class="tick small">
+      <li>A neurodevelopmental sleep clinic for children and young people.</li>
+      <li>A feeding and dietetics pathway with ARFID-informed dietitians and psychology.</li>
+      <li>Publishable studies: ARFID prevalence in a Right to Choose population; stimulants, appetite and ARFID; dose timing and sleep.</li></ul></div>
+  </div>
+  <p class="big-quote" style="font-size:1.2rem">Over 30 years I have seen thousands of autistic children with sleep difficulties. Pairing that clinical experience with Care ADHD's data could make this a genuine area of national leadership.</p>
+</div></section>
+
 <!-- 11 HELP -->
 <section class="block alt" id="help"><div class="wrap">
-  <div class="section-head"><div><span class="num">11 · How I can help</span><h2>Clinical depth, population-health rigour</h2></div></div>
+  <div class="section-head"><div><span class="num">14 · How I can help</span><h2>Clinical depth, population-health rigour</h2></div></div>
   <div class="bio">
     <div><div class="avatar">MA</div></div>
     <div>
@@ -312,9 +417,9 @@
   <h3 class="mt2">Suggested 90-day pilot</h3>
   <div class="plan">
     <div class="card"><span class="pill">Days 1–30</span><h3>Discover and govern</h3><ul class="tick small">
-      <li>Map data already collected across adult and Under 18s pathways.</li><li>Agree 6 to 8 quality measures with clinical leads, including combined autism + ADHD.</li><li>DPIA, Caldicott and clinical safety sign-off.</li><li>Baseline report on pseudonymised data.</li></ul></div>
+      <li>Map data already collected across adult and Under 18s pathways.</li><li>Agree 6 to 8 quality measures with clinical leads, including combined autism + ADHD.</li><li>Choose the first NICE audit standards (e.g. NG87 monitoring, CG128 3-month start, NG43 transition).</li><li>DPIA, Caldicott and clinical safety sign-off.</li><li>Baseline report on pseudonymised data.</li></ul></div>
     <div class="card"><span class="pill pink">Days 31–60</span><h3>Build with Bengaluru</h3><ul class="tick small">
-      <li>Pathway, outcomes and safety dashboards.</li><li>SPC charts for 2 improvement projects (e.g. forms return, monitoring).</li><li>Prototype explainable engagement model with fairness audit.</li><li>Test letter extraction on a small, consented sample.</li></ul></div>
+      <li>Pathway, outcomes and safety dashboards.</li><li>SPC charts for 2 improvement projects (e.g. forms return, monitoring).</li><li>Prototype explainable engagement model with fairness audit.</li><li>Nightly NICE adherence audit with clinician worklists.</li><li>Test letter extraction on a small, consented sample.</li></ul></div>
     <div class="card"><span class="pill amber">Days 61–90</span><h3>Test, learn and share</h3><ul class="tick small">
       <li>Run PDSA cycles and measure the effect.</li><li>Board and commissioner briefing.</li><li>Conference abstract and service evaluation write-up.</li><li>Plan for scale-up and the Bengaluru clinic.</li></ul></div>
   </div>
@@ -327,12 +432,13 @@
   <div class="cards c3" style="gap:28px">
     <div><h4>About this demo</h4><p>Concept demonstration prepared by Dr Mark Aszkenasy for discussion with Care ADHD, October 2026. It is not an official Care ADHD website and does not represent Care ADHD's data, performance or plans.</p></div>
     <div><h4>Data</h4><p>Every number, chart, patient ID, letter and comment is synthetic, generated by code in this page. No real patient information has been used. Clinical thresholds shown are illustrative and would be set by Care ADHD's clinical leads.</p></div>
-    <div><h4>Guidance referenced</h4><p>NICE NG87 (ADHD), NICE CG128 and CG170 (autism in under 19s), Caldicott principles, DCB0129 / DCB0160, UK GDPR. Public information about Care ADHD from <a href="https://www.careadhd.co.uk">careadhd.co.uk</a> and <a href="https://under18s.careadhd.co.uk">under18s.careadhd.co.uk</a>.</p></div>
+    <div><h4>Guidance referenced</h4><p>NICE NG87 (ADHD), CG128 and CG170 (autism in under 19s), CG142 (autism in adults), NG43 (transition to adult services), Caldicott principles, DCB0129 / DCB0160, UK GDPR. Public information about Care ADHD from <a href="https://www.careadhd.co.uk">careadhd.co.uk</a> and <a href="https://under18s.careadhd.co.uk">under18s.careadhd.co.uk</a>.</p></div>
   </div>
 </div></footer>
 
 <script src="vendor/chart.umd.js"></script>
 <script src="vendor/chartjs-chart-sankey.min.js"></script>
 <script src="js/app.js"></script>
+<script src="js/audit.js"></script>
 </body>
 </html>

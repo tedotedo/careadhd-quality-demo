@@ -157,7 +157,7 @@ function runForecast(){if(!FC.def)return;const d=+$('#fc_d').value,w=+$('#fc_w')
   let msg;if(d0<=FCTARGET)msg=`Estimated wait is already within the ${FCTARGET}-week illustrative target and stays ${S.T[51]<=FCTARGET?'there':'there until week '+(S.T.findIndex(t=>t>FCTARGET)+1)}.`;
   else if(hit>=0)msg=`<b>Waits fall below ${FCTARGET} weeks in week ${hit+1} (w/c ${lab[hit]})</b>. Effective capacity ${fmt(S.cap)} assessments a week against average demand of ${fmt(d)}.`;
   else{const need=((d+FC.W0/40)/(1+FCTARGET/40))/(r*(1-FC.dna*0.6*(1-x/100)));msg=`<b>Waits do not reach ${FCTARGET} weeks within a year.</b> Roughly ${fmt(Math.max(0,need-w),1)} more WTE (or equivalent productivity and DNA gains) would be needed.`}
-  $('#fcText').innerHTML=msg+` <span class="muted">Starting list: ${fmt(FC.W0)} (synthetic). Reducing DNAs frees slots: the link to the prediction model in section 05.</span>`;
+  $('#fcText').innerHTML=msg+` <span class="muted">Starting list: ${fmt(FC.W0)} (synthetic). Reducing DNAs frees slots: the link to the prediction model in section 07.</span>`;
   mk('forecast',{data:{labels:lab,datasets:[
     {type:'line',label:'Estimated wait, this scenario (weeks)',data:S.T.map(v=>+v.toFixed(1)),borderColor:C.teal,borderWidth:3,pointRadius:0,yAxisID:'y1',tension:.3},
     {type:'line',label:'Current plan (weeks)',data:B.T.map(v=>+v.toFixed(1)),borderColor:C.grey,borderDash:[5,4],borderWidth:2,pointRadius:0,yAxisID:'y1',tension:.3},
@@ -328,6 +328,8 @@ Thank you for referring Sam. Mum reports that he is constantly on the go at home
 
 Sam prefers to play alone at break time and lines up his toys in careful rows. He has an intense interest in train timetables. Changes to routine are very distressing for him, and he covers his ears in noisy places such as the school hall. Eye contact is limited and he has a very literal understanding of language.
 
+In his own words, Sam said "my brain goes too fast and nobody lets me finish". He would like help with "making friends who like trains".
+
 Sleep is a major concern: he takes over an hour to fall asleep and wakes at 3am most nights. He is anxious about school. No tics have been noted.
 
 Family history: father has dyslexia; a maternal cousin is autistic.
@@ -347,6 +349,8 @@ Plan: continue lisdexamfetamine 50 mg; recheck BP with home readings in 2 weeks 
 Jess is a 14-year-old girl, diagnosed with autism at age 11, now referred for ADHD assessment. Parents describe her as forgetful and disorganised, and she daydreams in lessons. Teachers say she is quiet and compliant; she appears to mask her difficulties at school and is exhausted after school.
 
 She has strong sensory sensitivities to clothing labels and noise. School attendance is 62% this term because of anxiety, and there has been low mood since the spring. She disclosed self-harm (scratching) to the school nurse last month; a safeguarding referral was made and CAMHS are aware.
+
+Jess told me she wants "to be able to go to school without feeling sick" and asked for questions in writing before appointments.
 
 Sleep onset is usually after 1am despite melatonin 2 mg.
 
@@ -368,6 +372,7 @@ const DICT=[
  ['school','School / work functioning',/school attendance is \d+%|exhausted after school|teacher[a-z]* (?:describes|say)|finishing tasks|focus at work/gi],
  ['risk','Self-harm',/self-harm[a-z ()]*/gi],['risk','Suicidal thoughts',/suicidal thoughts/gi],['risk','Safeguarding',/safeguarding (?:referral|concerns)/gi],
  ['se','Side effect',/reduced appetite[a-z ]*|weight down [0-9.]+ ?kg|weight loss/gi],
+ ['voice',"Child's own views",/in (?:his|her|their) own words[^.]*|(?:Jess|Sam) told me[^.]*|(?:he|she) would like help with[^.]*|asked for questions in writing[^.]*/gi],
  ['comorb','Family history',/family history:[^\n]*/gi]];
 const NEG=/\b(no|not|denies|without|nil)\b[^.]{0,12}$/i;
 function runNLP(){const t=$('#letter').value;const hits=[];
@@ -384,7 +389,7 @@ function runNLP(){const t=$('#letter').value;const hits=[];
   const summ=`${who}${au.includes('Existing autism diagnosis')?' with an existing autism diagnosis':''}. ${ad.length?'ADHD features: '+ad.join(', ').toLowerCase()+'. ':''}${au.filter(x=>x!=='Existing autism diagnosis').length?'Autism-related features: '+au.filter(x=>x!=='Existing autism diagnosis').join(', ').toLowerCase()+'. ':''}${sl.length?'Sleep: '+sl.join(', ').toLowerCase()+'. ':''}${co.length?'Also: '+co.join(', ').toLowerCase()+'. ':''}${asrs?`ASRS improved ${asrs[1]} → ${asrs[2]} (${Math.round(100*(asrs[1]-asrs[2])/asrs[1])}% reduction, meets responder threshold). `:''}${plan?'Plan:'+plan:''}`;
   const F=(k,v)=>`<div class="field"><b>${k}</b><div>${v||'<span class="muted">none found</span>'}</div></div>`;const P_=a=>a.map(x=>`<span class="pill">${x}</span>`).join('');
   const out=`<p class="small muted" style="margin-top:0">Annotated letter</p><div style="white-space:pre-wrap;font-size:.86rem;max-height:190px;overflow:auto;border:1px dashed var(--line);border-radius:10px;padding:10px">${html}</div>
-   <div class="mt">${F('Summary',summ)}${F('Suggested codes',codes.map(c=>`<span class="pill pink">${c}</span>`).join('')+'<div class="small muted">Pending clinician confirmation; SNOMED CT mapping in production</div>')}${F('ADHD features',P_(ad))}${F('Autism features',P_(au))}${F('Sleep',P_(sl))}${F('Co-occurring',P_(co))}${F('Medication',P_(by('med')))}${F('Side effects',P_([...new Set(keep.filter(h=>h.cat==='se').map(h=>h.txt))]))}${F('Family history',fam?fam.trim():'')}${F('Safety and risk',alerts.join(' '))}${F('Explicitly absent',negs.map(n=>`<span class="pill grey">${n}</span>`).join(''))}${F('Suggested measures',P_(meas))}</div>`;
+   <div class="mt">${F('Summary',summ)}${F('Suggested codes',codes.map(c=>`<span class="pill pink">${c}</span>`).join('')+'<div class="small muted">Pending clinician confirmation; SNOMED CT mapping in production</div>')}${F('ADHD features',P_(ad))}${F('Autism features',P_(au))}${F('Sleep',P_(sl))}${F('Co-occurring',P_(co))}${F('Medication',P_(by('med')))}${F('Side effects',P_([...new Set(keep.filter(h=>h.cat==='se').map(h=>h.txt))]))}${F('Family history',fam?fam.trim():'')}${F('Safety and risk',alerts.join(' '))}${F("Child's views",(()=>{const v=keep.filter(h=>h.cat==='voice');const isChild=age[1]&&+age[1]<18;if(!isChild)return '<span class="muted">Adult letter: not applicable</span>';return v.length?v.map(h=>`<span class="pill" style="background:#D9F0FF;color:#0b4f7a">"${h.txt.slice(0,70)}${h.txt.length>70?'…':''}"</span>`).join(' ')+'<div class="small muted">Counts as evidence for the audit standard \'child\'s views recorded\' (NG87 1.3.6)</div>':'<span class="pill red">Not documented: flag for NG87 1.3.6 audit</span>'})())}${F('Explicitly absent',negs.map(n=>`<span class="pill grey">${n}</span>`).join(''))}${F('Suggested measures',P_(meas))}</div>`;
   let w=0;const bar=$('#nlpProg');$('#nlpOut').innerHTML='<p class="muted">Reading letter, finding entities, checking negation, drafting summary…</p>';const tm=setInterval(()=>{w+=12;bar.style.width=Math.min(100,w)+'%';if(w>=100){clearInterval(tm);$('#nlpOut').innerHTML=out}},70)}
 seg('letterSeg',k=>{$('#letter').value=LETTERS[+k];runNLP()});$('#letter').value=LETTERS[0];$('#runNlp').addEventListener('click',runNLP);
 
@@ -417,7 +422,7 @@ const SPCD={};
   ins:'<b>Special cause detected:</b> after the change, every point sits above the old centre line (a run of 8+ is the signal), so the improvement is real rather than chance. Limits are recalculated for the new process.'};}
 {const v=[];for(let w=0;w<52;w++)v.push(w<22?14+randn()*2.2:9.5+randn()*1.6);
  SPCD.forms={labels:v.map((_,i)=>'Wk '+(i+1)),vals:v,lim:ichart(v,22),brk:22,unit:'days',title:'Median days to return pre-assessment forms (I-chart)',sub:'Weekly median. Change at week 23: SMS nudges at day 5 and 10, plus offer of phone help.',
-  ins:'<b>Process shift:</b> the median fell by about 4 days after SMS nudges and phone help. Because non-return is higher in more deprived areas (section 01), this change also narrows an inequality.'};}
+  ins:'<b>Process shift:</b> the median fell by about 4 days after SMS nudges and phone help. Because non-return is higher in more deprived areas (section 02), this change also narrows an inequality.'};}
 {const nd=P.filter(p=>p.pathway==='nd');const n=[],v=[];MONTHS.forEach((_,m)=>{const a=nd.filter(p=>p.m===m);n.push(a.length);v.push(a.filter(p=>p.auStart<=91).length/Math.max(1,a.length))});
  const L=pchart(v,n,10);SPCD.nd={labels:MONTHS,vals:v.map(x=>x*100),lim:{cl:L.cl.map(x=>x*100),ucl:L.ucl.map(x=>x*100),lcl:L.lcl.map(x=>x*100)},brk:10,unit:'%',title:'Autism assessment started within 3 months (p-chart)',sub:'Monthly %, combined pathway. Change from month 11: single combined triage and a weekly MDT clinic. CG128 quality marker.',
   ins:'<b>Step change:</b> a single combined triage and regular MDT clinic moved far more children into the CG128 3-month window. The next question for the data: which children still wait longest, and why?'};}
