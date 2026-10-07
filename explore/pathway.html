@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pathway flow · Explore the detail · Concept demo by Dr Mark Aszkenasy</title>
+<meta name="description" content="Concept demo using synthetic data only. Prepared by Dr Mark Aszkenasy for discussion with Care ADHD. Not an official Care ADHD website.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Familjen+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23006165%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%23FF8684%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/explore.css">
+</head>
+<body class="explore">
+<header class="xbar"><div class="wrap">
+  <a class="brand" href="../"><span class="dot"></span><span>Routine data, better care<small>Concept demo · Dr Mark Aszkenasy</small></span></a>
+  <nav><a href="./">All topics</a><a class="story" href="../">Back to the story</a></nav>
+</div></header>
+<main>
+<section class="xhead"><div class="wrap">
+  <div class="crumb"><a href="./">Explore the detail</a> <span>/</span> Access and flow</div>
+  <h1>Pathway flow</h1>
+  <p class="lead">Every synthetic referral followed from GP referral to a stable dose and shared care: where people wait, and where they drop out.</p>
+  <span class="synthetic">Illustrative synthetic data, no real patient information</span>
+</div></section>
+<section class="xbody"><div class="wrap">
+<div class="toolbar"><div class="seg" id="pathSeg"><button data-k="adult" class="on">Adults (18+)</button><button data-k="cyp">Under 18s: ADHD</button><button data-k="nd">Under 18s: combined autism + ADHD</button></div></div>
+  <div class="kpis" id="pathKpis"></div>
+  <div class="cards c21">
+    <div class="card"><h3>Patient flow</h3><div class="sub">Width of each band = number of synthetic patients. Hover for counts.</div><div class="chartbox tall"><canvas id="sankey"></canvas></div></div>
+    <div class="card"><h3>Waiting time by stage</h3><div class="sub">Median and 90th centile, days</div><div class="chartbox tall"><canvas id="waits"></canvas></div></div>
+  </div>
+  <div class="insight" id="pathInsight"></div>
+<nav class="pager"><a href="kpis.html"><small>Previous</small>Headline KPIs</a><a class="nx" href="prediction.html"><small>Next</small>Explainable prediction</a></nav>
+</div></section>
+</main>
+<footer class="xfoot"><div class="wrap">Concept demo by Dr Mark Aszkenasy. Illustrative synthetic data, no real patient information. Not an official Care ADHD website.</div></footer>
+<script src="../vendor/chart.umd.js"></script>
+<script src="../vendor/chartjs-chart-sankey.min.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/audit.js"></script>
+</body>
+</html>

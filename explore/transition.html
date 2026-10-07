@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transition to adult services · Explore the detail · Concept demo by Dr Mark Aszkenasy</title>
+<meta name="description" content="Concept demo using synthetic data only. Prepared by Dr Mark Aszkenasy for discussion with Care ADHD. Not an official Care ADHD website.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Familjen+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23006165%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%23FF8684%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/explore.css">
+</head>
+<body class="explore">
+<header class="xbar"><div class="wrap">
+  <a class="brand" href="../"><span class="dot"></span><span>Routine data, better care<small>Concept demo · Dr Mark Aszkenasy</small></span></a>
+  <nav><a href="./">All topics</a><a class="story" href="../">Back to the story</a></nav>
+</div></header>
+<main>
+<section class="xhead"><div class="wrap">
+  <div class="crumb"><a href="./">Explore the detail</a> <span>/</span> Children and families</div>
+  <h1>Transition to adult services</h1>
+  <p class="lead">Planned, in-house transition in line with NICE NG43 and NG87, and what happens when it is not planned.</p>
+  <span class="synthetic">Illustrative synthetic data, no real patient information</span>
+</div></section>
+<section class="xbody"><div class="wrap">
+
+  <div class="nd-hero"><h3>Care ADHD runs both under-18 and adult services</h3><p style="margin:0">That makes seamless, in-house transition possible: one organisation, one record, one prescribing team, and an adult clinician who can meet the young person well before their 18th birthday. Few NHS areas can offer that. Aligned with NICE NG43 (transition from children's to adults' services) and NG87 <a style="color:#fff" href="https://www.nice.org.uk/guidance/ng87/chapter/Recommendations#ng87-1_1_4" target="_blank" rel="noopener">1.1.4</a>–<a style="color:#fff" href="https://www.nice.org.uk/guidance/ng87/chapter/Recommendations#ng87-1_1_5" target="_blank" rel="noopener">1.1.5</a>.</p></div>
+  <div class="timeline" id="timeline"></div>
+  <div class="kpis mt" id="transKpis"></div>
+  <div class="cards c21">
+    <div class="card"><h3>The cliff edge at 18</h3><div class="sub">% of young people still engaged with ADHD care, by months from 18th birthday: planned transition vs unplanned transfer (synthetic cohort)</div><div class="chartbox tall"><canvas id="cliff"></canvas></div></div>
+    <div class="card"><h3>What planning changes</h3><div class="sub">Planned (plan ≥6 months ahead, named worker, joint handover) vs unplanned</div><div class="chartbox tall"><canvas id="transOut"></canvas></div></div>
+  </div>
+  <div class="card mt"><h3>Due to transfer in the next 6 months: who needs most support?</h3><div class="sub">Predicted risk of missing the first adult appointment, using the engagement model on the prediction page. Pseudonymised synthetic IDs.</div>
+    <div class="tablewrap"><table id="transTable"><thead><tr><th>ID</th><th>Turns 18</th><th>Readiness score</th><th>Plan in place</th><th>Named worker</th><th>Predicted risk</th><th>Suggested action</th></tr></thead><tbody></tbody></table></div></div>
+<nav class="pager"><a href="voice.html"><small>Previous</small>The child's own voice</a><a class="nx" href="experience.html"><small>Next</small>Patient and family experience</a></nav>
+</div></section>
+</main>
+<footer class="xfoot"><div class="wrap">Concept demo by Dr Mark Aszkenasy. Illustrative synthetic data, no real patient information. Not an official Care ADHD website.</div></footer>
+<script src="../vendor/chart.umd.js"></script>
+<script src="../vendor/chartjs-chart-sankey.min.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/audit.js"></script>
+</body>
+</html>

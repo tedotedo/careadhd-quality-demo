@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Possible future directions: sleep and eating · Explore the detail · Concept demo by Dr Mark Aszkenasy</title>
+<meta name="description" content="Concept demo using synthetic data only. Prepared by Dr Mark Aszkenasy for discussion with Care ADHD. Not an official Care ADHD website.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Familjen+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23006165%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%23FF8684%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/explore.css">
+</head>
+<body class="explore">
+<header class="xbar"><div class="wrap">
+  <a class="brand" href="../"><span class="dot"></span><span>Routine data, better care<small>Concept demo · Dr Mark Aszkenasy</small></span></a>
+  <nav><a href="./">All topics</a><a class="story" href="../">Back to the story</a></nav>
+</div></header>
+<main>
+<section class="xhead"><div class="wrap">
+  <div class="crumb"><a href="./">Explore the detail</a> <span>/</span> AI, people and governance</div>
+  <h1>Possible future directions: sleep and eating</h1>
+  <p class="lead">Not part of today's service. Sleep problems and restricted eating, including ARFID, are common in autism and ADHD and interact with stimulant medication.</p>
+  <span class="synthetic">Illustrative synthetic data, no real patient information</span>
+</div></section>
+<section class="xbody"><div class="wrap">
+<div class="cards c2">
+    <div class="card"><h3>How common? (synthetic)</h3><div class="sub">% screening positive at baseline, by pathway</div><div class="chartbox short"><canvas id="futPrev"></canvas></div></div>
+    <div class="card"><h3>Sleep problems at baseline</h3><div class="sub">CSHQ above clinical cut-off, and melatonin use</div><div class="chartbox short"><canvas id="ndSleep"></canvas></div></div>
+    <div class="card"><h3>Appetite, ARFID and growth</h3><div class="sub">Mean change in weight centile after starting a stimulant (children)</div><div class="chartbox short"><canvas id="futWeight"></canvas></div></div>
+    <div class="card"><h3>Sleep vs dose timing</h3><div class="sub">Extra minutes to fall asleep, by time of last stimulant dose</div><div class="chartbox short"><canvas id="futSleep"></canvas></div></div>
+  </div>
+  <div class="cards c3 mt">
+    <div class="card flat"><h3>Routine screening</h3><ul class="tick small">
+      <li>Sleep: Children's Sleep Habits Questionnaire (CSHQ) at baseline and each review, plus sleep diaries (NG87 1.8.17).</li>
+      <li>Eating: an ARFID screen such as the PARDI-AR-Q (parent version 4+, self-report 14+) or the Nine Item ARFID Screen (NIAS).</li>
+      <li>Results feed the titration plan and the <a href="safety.html">safety worklist</a>.</li></ul></div>
+    <div class="card flat"><h3>Early-warning flags</h3><ul class="tick small">
+      <li>Positive ARFID screen plus stimulant: dietetic advice before titration, closer weight checks.</li>
+      <li>Weight falling across centile lines (NG87 1.8.5–1.8.6).</li>
+      <li>Sleep onset delayed by more than an hour after a dose change: review dose timing.</li>
+      <li>Melatonin without a sleep plan (CG170 1.7.6–1.7.7): see the <a href="nice-audit.html">NICE audit</a>.</li></ul></div>
+    <div class="card flat"><h3>New services and research</h3><ul class="tick small">
+      <li>A neurodevelopmental sleep clinic for children and young people.</li>
+      <li>A feeding and dietetics pathway with ARFID-informed dietitians and psychology.</li>
+      <li>Publishable studies: ARFID prevalence in a Right to Choose population; stimulants, appetite and ARFID; dose timing and sleep.</li></ul></div>
+  </div>
+  <p class="big-quote" style="font-size:1.2rem">"Over 30 years I have seen thousands of autistic children with sleep difficulties. Pairing that clinical experience with Care ADHD's data could make this a genuine area of national leadership."<br><small class="muted">Dr Mark Aszkenasy</small></p>
+<nav class="pager"><a href="uk-bengaluru.html"><small>Previous</small>UK + Bengaluru</a><a class="nx" href="pilot.html"><small>Next</small>90-day pilot and about me</a></nav>
+</div></section>
+</main>
+<footer class="xfoot"><div class="wrap">Concept demo by Dr Mark Aszkenasy. Illustrative synthetic data, no real patient information. Not an official Care ADHD website.</div></footer>
+<script src="../vendor/chart.umd.js"></script>
+<script src="../vendor/chartjs-chart-sankey.min.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/audit.js"></script>
+</body>
+</html>

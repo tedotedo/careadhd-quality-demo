@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Explainable prediction · Explore the detail · Concept demo by Dr Mark Aszkenasy</title>
+<meta name="description" content="Concept demo using synthetic data only. Prepared by Dr Mark Aszkenasy for discussion with Care ADHD. Not an official Care ADHD website.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Familjen+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23006165%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%23FF8684%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/explore.css">
+</head>
+<body class="explore">
+<header class="xbar"><div class="wrap">
+  <a class="brand" href="../"><span class="dot"></span><span>Routine data, better care<small>Concept demo · Dr Mark Aszkenasy</small></span></a>
+  <nav><a href="./">All topics</a><a class="story" href="../">Back to the story</a></nav>
+</div></header>
+<main>
+<section class="xhead"><div class="wrap">
+  <div class="crumb"><a href="./">Explore the detail</a> <span>/</span> Access and flow</div>
+  <h1>Explainable prediction</h1>
+  <p class="lead">A transparent model, trained in your browser, that estimates the chance of a missed titration appointment so extra support can be offered. With calibration and a fairness audit.</p>
+  <span class="synthetic">Illustrative synthetic data, no real patient information</span>
+</div></section>
+<section class="xbody"><div class="wrap">
+<div class="cards c12">
+    <div class="card what-if"><h3>What-if explorer</h3><div class="sub">Move the sliders to see how the estimate and its explanation change.</div>
+      <div class="gauge" id="riskVal">--</div><div class="riskbar"><i id="riskPin"></i></div><div class="small muted" id="riskBand"></div>
+      <label>Age <span id="v_age"></span></label><input type="range" id="f_age" min="7" max="65" value="24">
+      <label>Days waiting since last contact <span id="v_wait"></span></label><input type="range" id="f_wait" min="0" max="180" value="60">
+      <label>Previous missed appointments <span id="v_dna"></span></label><input type="range" id="f_dna" min="0" max="4" value="1">
+      <label>Deprivation (IMD quintile) <span id="v_imd"></span></label><input type="range" id="f_imd" min="1" max="5" value="2">
+      <label>Days to return pre-assessment forms <span id="v_forms"></span></label><input type="range" id="f_forms" min="1" max="60" value="21">
+      <label>Uses the Care ADHD app <span></span></label><select id="f_app"><option value="1">Yes</option><option value="0" selected>No</option></select>
+      <label>Co-occurring anxiety <span></span></label><select id="f_anx"><option value="1">Yes</option><option value="0" selected>No</option></select>
+      <label>Appointment reminder <span></span></label><select id="f_rem"><option value="1" selected>SMS + email</option><option value="0">Letter only</option></select>
+    </div>
+    <div>
+      <div class="card"><h3>Why this estimate? (plain English)</h3><div class="sub">Each bar shows how much a factor pushes the risk up (coral) or down (teal) compared with an average patient.</div>
+        <div id="contribs"></div><div class="explain" id="explainText"></div></div>
+      <div class="cards c2 mt">
+        <div class="card"><h3>Does it work?</h3><div class="sub" id="aucText"></div><div class="chartbox short"><canvas id="calib"></canvas></div></div>
+        <div class="card"><h3>Is it fair?</h3><div class="sub">Predicted vs observed DNA rate by group (test set). Ethnicity is used <b>only</b> to audit fairness, never as an input.</div>
+          <div class="toolbar"><div class="seg" id="fairSeg"><button data-k="age" class="on">Age</button><button data-k="sex">Sex</button><button data-k="imd">IMD</button><button data-k="eth">Ethnicity</button></div></div>
+          <div class="chartbox short"><canvas id="fair"></canvas></div></div>
+      </div>
+    </div>
+  </div>
+<nav class="pager"><a href="pathway.html"><small>Previous</small>Pathway flow</a><a class="nx" href="nice-audit.html"><small>Next</small>NICE guidelines, audited automatically</a></nav>
+</div></section>
+</main>
+<footer class="xfoot"><div class="wrap">Concept demo by Dr Mark Aszkenasy. Illustrative synthetic data, no real patient information. Not an official Care ADHD website.</div></footer>
+<script src="../vendor/chart.umd.js"></script>
+<script src="../vendor/chartjs-chart-sankey.min.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/audit.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The child&#x27;s own voice · Explore the detail · Concept demo by Dr Mark Aszkenasy</title>
+<meta name="description" content="Concept demo using synthetic data only. Prepared by Dr Mark Aszkenasy for discussion with Care ADHD. Not an official Care ADHD website.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Familjen+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23006165%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%23FF8684%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/explore.css">
+</head>
+<body class="explore">
+<header class="xbar"><div class="wrap">
+  <a class="brand" href="../"><span class="dot"></span><span>Routine data, better care<small>Concept demo · Dr Mark Aszkenasy</small></span></a>
+  <nav><a href="./">All topics</a><a class="story" href="../">Back to the story</a></nav>
+</div></header>
+<main>
+<section class="xhead"><div class="wrap">
+  <div class="crumb"><a href="./">Explore the detail</a> <span>/</span> Children and families</div>
+  <h1>The child's own voice</h1>
+  <p class="lead">Child-rated goals, outcomes and experience alongside parent and teacher ratings. NICE NG87 asks clinicians to take children's views into account (<a href="https://www.nice.org.uk/guidance/ng87/chapter/Recommendations#ng87-1_3_6" target="_blank" rel="noopener">1.3.6</a>) and to encourage their own account before treatment (<a href="https://www.nice.org.uk/guidance/ng87/chapter/Recommendations#ng87-1_5_4" target="_blank" rel="noopener">1.5.4</a>).</p>
+  <span class="synthetic">Illustrative synthetic data, no real patient information</span>
+</div></section>
+<section class="xbody"><div class="wrap">
+
+  
+  <div class="kpis" id="voiceKpis"></div>
+  <div class="cards c2">
+    <div class="card"><h3>Child and parent see change differently</h3><div class="sub">"How much better are things?" (0–10) at 12 weeks: child vs parent. Points outside the band differ by 3 or more.</div><div class="chartbox"><canvas id="diverge"></canvas></div></div>
+    <div class="card"><h3>Whose goals?</h3><div class="sub">Goal-Based Outcomes: themes of goals set by children themselves vs by parents</div><div class="chartbox"><canvas id="goals"></canvas></div></div>
+  </div>
+  <div class="cards c2 mt">
+    <div class="card"><h3>Child-rated experience</h3><div class="sub">Age-appropriate survey with picture scales: % answering positively, child vs parent</div><div class="chartbox"><canvas id="childExp"></canvas></div></div>
+    <div class="card"><h3>Is the child's voice in the record?</h3><div class="sub">% of letters where the child's own views are documented (found by AI on letters), and accessible formats offered to autistic children</div><div class="chartbox"><canvas id="voiceTrend"></canvas></div></div>
+  </div>
+  <div class="card flat mt"><h3>Accessible by design for autistic children</h3>
+    <div class="cards c4 small">
+      <div><b>Visual appointment guide</b><br>Photos of who they'll meet and what will happen, sent in advance.</div>
+      <div><b>Picture and emoji scales</b><br>Child-rated outcomes and experience without long questionnaires.</div>
+      <div><b>One-page profile</b><br>"All about me" and a communication passport, as NG43 1.2.12 suggests.</div>
+      <div><b>Choice of how to answer</b><br>Type in the chat, draw, or speak; breaks and sensory-friendly video appointments.</div>
+    </div><div class="insight" id="voiceInsight"></div></div>
+
+  
+<nav class="pager"><a href="autism-adhd.html"><small>Previous</small>Autism and ADHD together (7+)</a><a class="nx" href="transition.html"><small>Next</small>Transition to adult services</a></nav>
+</div></section>
+</main>
+<footer class="xfoot"><div class="wrap">Concept demo by Dr Mark Aszkenasy. Illustrative synthetic data, no real patient information. Not an official Care ADHD website.</div></footer>
+<script src="../vendor/chart.umd.js"></script>
+<script src="../vendor/chartjs-chart-sankey.min.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/audit.js"></script>
+</body>
+</html>

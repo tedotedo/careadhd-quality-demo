@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Headline KPIs · Explore the detail · Concept demo by Dr Mark Aszkenasy</title>
+<meta name="description" content="Concept demo using synthetic data only. Prepared by Dr Mark Aszkenasy for discussion with Care ADHD. Not an official Care ADHD website.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Familjen+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23006165%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%23FF8684%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/explore.css">
+</head>
+<body class="explore">
+<header class="xbar"><div class="wrap">
+  <a class="brand" href="../"><span class="dot"></span><span>Routine data, better care<small>Concept demo · Dr Mark Aszkenasy</small></span></a>
+  <nav><a href="./">All topics</a><a class="story" href="../">Back to the story</a></nav>
+</div></header>
+<main>
+<section class="xhead"><div class="wrap">
+  <div class="crumb"><a href="./">Explore the detail</a> <span>/</span> Access and flow</div>
+  <h1>Headline KPIs</h1>
+  <p class="lead">Thirteen measures that matter to patients, families, clinicians and commissioners, each with a target and a trend, plus a waiting-list forecast.</p>
+  <span class="synthetic">Illustrative synthetic data, no real patient information</span>
+</div></section>
+<section class="xbody"><div class="wrap">
+<div class="filters">
+    <label>Service<select id="kf_service" data-kf="kf_service"><option value="all">All services</option><option value="adult">Adults (18+)</option><option value="child">Under 18s</option></select></label>
+    <label>Pathway<select id="kf_path" data-kf="kf_path"><option value="all">All pathways</option><option value="adhd">ADHD only</option><option value="nd">Combined autism + ADHD (7+)</option></select></label>
+    <label>Age band<select id="kf_age" data-kf="kf_age"><option value="all">All ages</option><option>7–11</option><option>12–17</option><option>18–25</option><option>26–40</option><option>41+</option></select></label>
+    <label>Reporting period<select id="kf_period"><option value="3">Last 3 months</option><option value="6">Last 6 months</option></select></label>
+    <span class="small muted" id="kpiCount"></span>
+  </div>
+  <div class="kpigrid" id="kpiGrid"></div>
+  <div class="small muted mt">Targets are illustrative, for discussion. Arrows compare with the previous period of the same length. Green: meets target · amber: close · red: needs attention.</div>
+  <div class="card mt"><h3 id="trendTitle">Trend</h3><div class="sub" id="trendSub"></div><div class="chartbox"><canvas id="kpiTrend"></canvas></div></div>
+  <div class="cards c12 mt">
+    <div class="card what-if"><h3>Waiting-list forecast</h3><div class="sub">What-if on capacity for the filtered service. Move the sliders.</div>
+      <label>Referrals per week <span id="v_fc_d"></span></label><input type="range" id="fc_d">
+      <label>Assessing clinicians <span id="v_fc_w"></span></label><input type="range" id="fc_w">
+      <label>Assessments per WTE per week <span id="v_fc_r"></span></label><input type="range" id="fc_r">
+      <label>DNAs prevented by targeted support <span id="v_fc_x"></span></label><input type="range" id="fc_x">
+      <button class="btn ghost mt" id="fc_reset" type="button">Reset to current plan</button>
+    </div>
+    <div class="card"><h3>Next 52 weeks</h3><div class="sub">Simple stock-and-flow model with term-time seasonality. A production version would use the live waiting list and job plans.</div>
+      <div class="chartbox tall"><canvas id="forecast"></canvas></div><div class="insight" id="fcText"></div></div>
+  </div>
+<nav class="pager"><a href="./"><small>Back to</small>All topics</a><a class="nx" href="pathway.html"><small>Next</small>Pathway flow</a></nav>
+</div></section>
+</main>
+<footer class="xfoot"><div class="wrap">Concept demo by Dr Mark Aszkenasy. Illustrative synthetic data, no real patient information. Not an official Care ADHD website.</div></footer>
+<script src="../vendor/chart.umd.js"></script>
+<script src="../vendor/chartjs-chart-sankey.min.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/audit.js"></script>
+</body>
+</html>

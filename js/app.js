@@ -18,12 +18,13 @@ const mean=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:NaN;
 const pct=(a,f)=>a.length?100*a.filter(f).length/a.length:NaN;
 const fmt=(x,d=0)=>isNaN(x)?'–':x.toLocaleString('en-GB',{maximumFractionDigits:d,minimumFractionDigits:d});
 const $=s=>document.querySelector(s);
+const H=(s,h)=>{const e=document.querySelector(s);if(e)e.innerHTML=h};
 const C={teal:'#006165',teal2:'#3F7174',teal3:'#5E9EA0',mint:'#9adbc6',coral:'#FF8684',pink:'#F0B0C8',sun:'#FFD35C',slate:'#3F4549',grey:'#b9c4c6',purple:'#8a7fd1',blue:'#5b9bd5'};
 const charts={};
 function mk(id,cfg){if(charts[id])charts[id].destroy();const el=document.getElementById(id);if(!el)return;charts[id]=new Chart(el,cfg);return charts[id]}
 Chart.defaults.font.family='Arimo, "Segoe UI", Arial, sans-serif';Chart.defaults.font.size=13;Chart.defaults.color='#3F4549';
 Chart.defaults.maintainAspectRatio=false;Chart.defaults.plugins.legend.labels.boxWidth=14;Chart.defaults.animation.duration=500;
-function seg(id,cb){const el=document.getElementById(id);el.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{el.querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');cb(b.dataset.k)}));}
+function seg(id,cb){const el=document.getElementById(id);if(!el)return;el.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{el.querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');cb(b.dataset.k)}));}
 const MONTHS=[];{const nm=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];for(let i=0;i<18;i++){const mm=(3+i)%12,yy=25+Math.floor((3+i)/12);MONTHS.push(nm[mm]+' '+yy)}}
 
 // ---------- synthetic cohort ----------
@@ -83,12 +84,12 @@ for(let i=0;i<N;i++){
 }
 
 // ---------- hero stats ----------
-$('#heroStats').innerHTML=[
+H('#heroStats',[
   [fmt(N),'synthetic referrals generated in your browser'],
   ['13','headline quality KPIs with targets'],
   ['1','explainable model trained live, with a fairness audit'],
   ['0','real patient records used']
-].map(([b,s])=>`<div class="stat"><b>${b}</b><span>${s}</span></div>`).join('');
+].map(([b,s])=>`<div class="stat"><b>${b}</b><span>${s}</span></div>`).join(''));
 
 // ---------- KPI dashboard ----------
 const PRODM=MONTHS.map((_,m)=>3.55+0.055*m+randn()*0.08); // synthetic assessments per WTE per week
@@ -157,7 +158,7 @@ function runForecast(){if(!FC.def)return;const d=+$('#fc_d').value,w=+$('#fc_w')
   let msg;if(d0<=FCTARGET)msg=`Estimated wait is already within the ${FCTARGET}-week illustrative target and stays ${S.T[51]<=FCTARGET?'there':'there until week '+(S.T.findIndex(t=>t>FCTARGET)+1)}.`;
   else if(hit>=0)msg=`<b>Waits fall below ${FCTARGET} weeks in week ${hit+1} (w/c ${lab[hit]})</b>. Effective capacity ${fmt(S.cap)} assessments a week against average demand of ${fmt(d)}.`;
   else{const need=((d+FC.W0/40)/(1+FCTARGET/40))/(r*(1-FC.dna*0.6*(1-x/100)));msg=`<b>Waits do not reach ${FCTARGET} weeks within a year.</b> Roughly ${fmt(Math.max(0,need-w),1)} more WTE (or equivalent productivity and DNA gains) would be needed.`}
-  $('#fcText').innerHTML=msg+` <span class="muted">Starting list: ${fmt(FC.W0)} (synthetic). Reducing DNAs frees slots: the link to the prediction model in section 07.</span>`;
+  $('#fcText').innerHTML=msg+` <span class="muted">Starting list: ${fmt(FC.W0)} (synthetic). Reducing DNAs frees slots: see the prediction page.</span>`;
   mk('forecast',{data:{labels:lab,datasets:[
     {type:'line',label:'Estimated wait, this scenario (weeks)',data:S.T.map(v=>+v.toFixed(1)),borderColor:C.teal,borderWidth:3,pointRadius:0,yAxisID:'y1',tension:.3},
     {type:'line',label:'Current plan (weeks)',data:B.T.map(v=>+v.toFixed(1)),borderColor:C.grey,borderDash:[5,4],borderWidth:2,pointRadius:0,yAxisID:'y1',tension:.3},
@@ -165,10 +166,10 @@ function runForecast(){if(!FC.def)return;const d=+$('#fc_d').value,w=+$('#fc_w')
     {type:'bar',label:'Waiting list (people)',data:S.L,backgroundColor:'rgba(240,176,200,.55)',yAxisID:'y',order:5}]},
     options:{interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom'}},scales:{x:{ticks:{maxTicksLimit:12}},y:{position:'right',beginAtZero:true,title:{display:true,text:'People waiting'},grid:{display:false}},y1:{position:'left',beginAtZero:true,title:{display:true,text:'Estimated wait (weeks)'}}}}});
 }
-['fc_d','fc_w','fc_r','fc_x'].forEach(id=>document.getElementById(id).addEventListener('input',runForecast));
+if($('#kpiGrid')){['fc_d','fc_w','fc_r','fc_x'].forEach(id=>document.getElementById(id).addEventListener('input',runForecast));
 ['kf_service','kf_path','kf_age','kf_period'].forEach(id=>document.getElementById(id).addEventListener('change',()=>{KF.service=$('#kf_service').value;KF.pathway=$('#kf_path').value;KF.age=$('#kf_age').value;KF.period=+$('#kf_period').value;renderKpis()}));
 $('#fc_reset').addEventListener('click',()=>resetForecast(P.filter(kfilter)));
-renderKpis();
+renderKpis();}
 
 // ---------- 01 pathway ----------
 const NODECOL={'Referred':C.teal,'Forms returned':C.teal2,'Forms not returned':C.coral,'Assessed':C.teal3,'Withdrew before assessment':C.coral,'ADHD diagnosed':C.teal,'ADHD not diagnosed':C.grey,
@@ -194,9 +195,9 @@ function renderPath(k){const a=segArr(k);const F=[];const add=(f,t,n)=>{if(n>0)F
   const e2e=median(a.filter(p=>p.stable).map(p=>p.refToAssess+p.assessToDx+p.dxToTx+p.stableDays));
   $('#pathKpis').innerHTML=[[fmt(a.length),'synthetic referrals'],[fmt(pct(a.filter(p=>p.assessed),p=>p.refToAssess<=91))+'%','assessed within 13 weeks'],[fmt(100*cnt(p=>p.stable)/Math.max(1,cnt(p=>p.startTx)))+'%','of those starting titration reach a stable dose'],[fmt(e2e/7)+' wks','median referral to stable dose']].map(([b,s])=>`<div class="kpi"><b>${b}</b><span>${s}</span></div>`).join('');
   const nr=q=>pct(a.filter(p=>p.imd===q),p=>!p.formsReturned);
-  $('#pathInsight').innerHTML=`<b>What the data suggests:</b> the largest proportional loss is <b>${stages[0][0]}</b> (${fmt(stages[0][1]*100,1)}%). Non-return of forms is ${fmt(nr(1),1)}% in the most deprived quintile vs ${fmt(nr(5),1)}% in the least deprived, so targeted help with forms (phone support, easy-read versions, reminders) is a fairness intervention as well as an efficiency one. ${k==='nd'?'For the combined pathway, the autism assessment step is the longest wait, which is why it has its own CG128 quality marker below.':'The longest wait is between diagnosis and starting titration, where capacity planning (see the forecast above) has most leverage.'}`;
+  $('#pathInsight').innerHTML=`<b>What the data suggests:</b> the largest proportional loss is <b>${stages[0][0]}</b> (${fmt(stages[0][1]*100,1)}%). Non-return of forms is ${fmt(nr(1),1)}% in the most deprived quintile vs ${fmt(nr(5),1)}% in the least deprived, so targeted help with forms (phone support, easy-read versions, reminders) is a fairness intervention as well as an efficiency one. ${k==='nd'?'For the combined pathway, the autism assessment step is the longest wait, which is why it has its own CG128 quality marker.':'The longest wait is between diagnosis and starting titration, where capacity planning (see the forecast on the KPI page) has most leverage.'}`;
 }
-seg('pathSeg',renderPath);renderPath('adult');
+if($('#sankey')){seg('pathSeg',renderPath);renderPath('adult');}
 
 // ---------- 02 combined autism + ADHD ----------
 (function(){
@@ -206,7 +207,7 @@ seg('pathSeg',renderPath);renderPath('adult');
   const ndAll=P.filter(p=>p.pathway==='nd');
   const w3e=pct(ndAll.filter(p=>p.m<6),p=>p.auStart<=91),w3l=pct(ndAll.filter(p=>p.m>=12),p=>p.auStart<=91);
   const sA=mean(txA.filter(p=>p.stable).map(p=>p.steps)),sN=mean(txN.filter(p=>p.stable).map(p=>p.steps));
-  $('#ndKpis').innerHTML=[[fmt(pct(nd,p=>p.ndOut==='ADHD + autism'))+'%','of combined-pathway children diagnosed with both'],[fmt(w3e)+'% → '+fmt(w3l)+'%','autism assessment started within 3 months (CG128), first vs last 6 months'],[fmt(sA,1)+' vs '+fmt(sN,1),'titration steps to stability: ADHD + autism vs ADHD alone'],[fmt(pct(dxA,p=>p.sleepProb))+'% vs '+fmt(pct(dxN,p=>p.sleepProb))+'%','significant sleep problems at baseline']].map(([b,s])=>`<div class="kpi"><b>${b}</b><span>${s}</span></div>`).join('');
+  H('#ndKpis',[[fmt(pct(nd,p=>p.ndOut==='ADHD + autism'))+'%','of combined-pathway children diagnosed with both'],[fmt(w3e)+'% → '+fmt(w3l)+'%','autism assessment started within 3 months (CG128), first vs last 6 months'],[fmt(sA,1)+' vs '+fmt(sN,1),'titration steps to stability: ADHD + autism vs ADHD alone'],[fmt(pct(dxA,p=>p.sleepProb))+'% vs '+fmt(pct(dxN,p=>p.sleepProb))+'%','significant sleep problems at baseline']].map(([b,s])=>`<div class="kpi"><b>${b}</b><span>${s}</span></div>`).join(''));
   const outs=['ADHD + autism','ADHD only','Autism only','Neither'];
   mk('ndOutcome',{type:'doughnut',data:{labels:outs,datasets:[{data:outs.map(o=>nd.filter(p=>p.ndOut===o).length),backgroundColor:['#d6457c',C.teal,C.pink,C.grey],borderWidth:2}]},options:{cutout:'58%',plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>`${c.label}: ${fmt(100*c.parsed/nd.length,1)}%`}}}}});
   const bins=['1','2','3','4','5','6+'],hist=a=>{const s=a.filter(p=>p.stable);return bins.map((b,i)=>100*s.filter(p=>i===5?p.steps>=6:p.steps===i+1).length/Math.max(1,s.length))};
@@ -216,8 +217,7 @@ seg('pathSeg',renderPath);renderPath('adult');
   mk('ndSE',{type:'bar',data:{labels:['Reduced appetite','Sleep onset delay','Irritability','Anxiety','Headache','Tics'],datasets:[{label:'ADHD alone',data:SE.map(s=>pct(txN,p=>p.se[s])),backgroundColor:C.teal},{label:'ADHD + autism',data:SE.map(s=>pct(txA,p=>p.se[s])),backgroundColor:'#d6457c'}]},options:{indexAxis:'y',plugins:{legend:{position:'bottom'}},scales:{x:{title:{display:true,text:'% of children starting medication'}}}}});
   const T=[0,1,2,3,6,9,12],traj=a=>T.map(t=>mean(a.map(p=>p.base*(1+p.symChange*(1-Math.exp(-t/1.4))))));
   mk('ndTraj',{type:'line',data:{labels:T.map(t=>t+' m'),datasets:[{label:'ADHD alone',data:traj(txN),borderColor:C.teal,backgroundColor:C.teal,tension:.35,borderWidth:3},{label:'ADHD + autism',data:traj(txA),borderColor:'#d6457c',backgroundColor:'#d6457c',tension:.35,borderWidth:3}]},options:{plugins:{legend:{position:'bottom'}},scales:{y:{title:{display:true,text:'mean symptom score (0–54)'}}}}});
-  $('#ndTraj').closest('.card').querySelector('.sub').textContent='Mean ADHD symptom score (SNAP-IV style, 0–54, lower is better) for children starting medication';
-  $('#ndInsight').innerHTML=`<b>Synthetic example:</b> children with ADHD and autism need more titration steps (${fmt(sA,1)} vs ${fmt(sN,1)}), report irritability about twice as often (${fmt(pct(txA,p=>p.se.Irritability))}% vs ${fmt(pct(txN,p=>p.se.Irritability))}%) and improve less on average. A pathway that starts lower, goes slower and treats sleep early could be tested and measured.`;
+  H('#ndInsight',`<b>Synthetic example:</b> children with ADHD and autism need more titration steps (${fmt(sA,1)} vs ${fmt(sN,1)}), report irritability about twice as often (${fmt(pct(txA,p=>p.se.Irritability))}% vs ${fmt(pct(txN,p=>p.se.Irritability))}%) and improve less on average. A pathway that starts lower, goes slower and treats sleep early could be tested and measured.`);
 })();
 
 // ---------- 03 outcomes ----------
@@ -235,7 +235,7 @@ function renderOut(k){const svc=k==='adult'?'adult':'child';const a=P.filter(p=>
   const symNoFun=pct(a,p=>p.resp&&!p.funcImp);
   $('#outInsight').innerHTML=`<b>What the data suggests:</b> ${fmt(pct(a,p=>p.resp))}% of synthetic ${k==='adult'?'adults':'children'} respond on symptoms by 12 weeks. ${fmt(symNoFun)}% improve on symptoms but not yet on daily functioning: a group who might benefit from coaching, the Care ADHD app or school support alongside medication. Linking outcomes to medication, dose and co-occurring conditions makes every review a contribution to the evidence.`;
 }
-seg('outSeg',renderOut);renderOut('adult');
+if($('#outTraj')){seg('outSeg',renderOut);renderOut('adult');}
 
 // ---------- 04 safety ----------
 const LINES=[0.4,2,9,25,50,75,91,98,99.6];
@@ -270,7 +270,7 @@ function renderSafeChart(){const s=SAFE.find(x=>x.id===safeSel);const lab=s.days
   const ds=s.child?[{label:'Heart rate (bpm)',data:s.hr,borderColor:C.slate,backgroundColor:C.slate,yAxisID:'y',tension:.3},{label:'Systolic BP centile',data:s.sbpC,borderColor:C.coral,backgroundColor:C.coral,yAxisID:'y1',tension:.3,borderWidth:3},{label:'Weight centile',data:s.wC,borderColor:C.teal,backgroundColor:C.teal,yAxisID:'y1',tension:.3,borderWidth:3},dash(95,'y1','#d6457c','95th centile'),dash(120,'y','#a3221f','HR 120')]
    :[{label:'Systolic (mmHg)',data:s.sbp,borderColor:C.coral,backgroundColor:C.coral,yAxisID:'y',tension:.3,borderWidth:3},{label:'Diastolic (mmHg)',data:s.dbp,borderColor:C.pink,backgroundColor:C.pink,yAxisID:'y',tension:.3},{label:'Heart rate (bpm)',data:s.hr,borderColor:C.slate,backgroundColor:C.slate,yAxisID:'y',tension:.3},dash(140,'y','#d6457c','140 mmHg'),dash(120,'y','#a3221f','HR 120')];
   mk('safeChart',{type:'line',data:{labels:lab,datasets:ds},options:{plugins:{legend:{position:'bottom',labels:{filter:i=>!/^(95th|140|HR 120)/.test(i.text)}}},scales:{y:{title:{display:true,text:s.child?'bpm':'mmHg / bpm'},suggestedMin:40,suggestedMax:150},...(s.child?{y1:{position:'right',min:0,max:100,title:{display:true,text:'centile'},grid:{display:false}}}:{})}}})}
-(function(){const rec=P.filter(p=>p.startTx&&p.m>=15);const cnt=l=>SAFE.filter(s=>s.flags.some(f=>f[0]===l)).length;
+(function(){if(!$('#safeTable'))return;const rec=P.filter(p=>p.startTx&&p.m>=15);const cnt=l=>SAFE.filter(s=>s.flags.some(f=>f[0]===l)).length;
   $('#safeKpis').innerHTML=[[fmt(rec.length),'synthetic patients in titration (last 3 months)'],[cnt('red'),'act-now alerts today'],[cnt('amber'),'readings to review'],[fmt(pct(rec,p=>p.monitorOK))+'%','monitoring completed on time']].map(([b,s])=>`<div class="kpi"><b>${b}</b><span>${s}</span></div>`).join('');
   seg('safeSeg',k=>renderSafeTable(k));renderSafeTable('all');renderSafeChart()})();
 
@@ -295,7 +295,7 @@ const MODEL=(function(){const X=P.map(p=>FEAT.map(F=>F.f(p))),y=P.map(p=>p.dna?1
   const test=P.map((p,i)=>({p,y:y[i],s:pred(X[i])})).filter((_,i)=>!tr[i]);
   const auc=(arr)=>{const pos=arr.filter(r=>r.y),neg=arr.filter(r=>!r.y);if(!pos.length||!neg.length)return NaN;const s=[...arr].sort((a,b)=>a.s-b.s);let rk=0,sum=0;s.forEach((r,i)=>{if(r.y)sum+=i+1});return (sum-pos.length*(pos.length+1)/2)/(pos.length*neg.length)};
   return {beta,b0,mu,pred,test,auc:auc(test),aucF:auc,ntr:idx.length}})();
-$('#aucText').innerHTML=`Trained on ${fmt(MODEL.ntr)} synthetic records, tested on ${fmt(MODEL.test.length)} unseen ones. Discrimination (AUC): <b>${MODEL.auc.toFixed(2)}</b>. Calibration below: predicted vs observed, by tenth of risk.`;
+H('#aucText',`Trained on ${fmt(MODEL.ntr)} synthetic records, tested on ${fmt(MODEL.test.length)} unseen ones. Discrimination (AUC): <b>${MODEL.auc.toFixed(2)}</b>. Calibration below: predicted vs observed, by tenth of risk.`);
 (function(){const s=[...MODEL.test].sort((a,b)=>a.s-b.s),pts=[];for(let d=0;d<10;d++){const g=s.slice(Math.floor(d*s.length/10),Math.floor((d+1)*s.length/10));pts.push({x:+(100*mean(g.map(r=>r.s))).toFixed(1),y:+(100*mean(g.map(r=>r.y))).toFixed(1)})}
   const mx=Math.ceil(Math.max(...pts.map(p=>Math.max(p.x,p.y)))/5)*5;
   mk('calib',{type:'scatter',data:{datasets:[{label:'Tenths of predicted risk',data:pts,backgroundColor:C.teal,pointRadius:5},{type:'line',label:'Perfect calibration',data:[{x:0,y:0},{x:mx,y:mx}],borderColor:C.coral,borderDash:[5,4],pointRadius:0}]},
@@ -316,7 +316,7 @@ function whatIf(){const age=+$('#f_age').value,x={child:age<18?1:0,ya:age>=18&&a
   const up=con.filter(c=>c.c>0.05).slice(0,2),down=con.filter(c=>c.c<-0.05).slice(0,1);
   const acts=up.filter(u=>!(u.F.k==='app'&&x.app)&&!(u.F.k==='rem'&&x.rem)&&u.F.k!=='child').map(u=>ACTIONS[u.F.k]).filter(Boolean);if(x.rem===0&&!acts.includes(ACTIONS.rem))acts.push(ACTIONS.rem);
   $('#explainText').innerHTML=`Compared with an average patient, ${up.length?'the estimate is pushed up mainly by <b>'+up.map(u=>u.nm.toLowerCase()).join('</b> and <b>')+'</b>':'nothing much pushes the estimate up'}${down.length?', and pulled down by <b>'+down[0].nm.toLowerCase()+'</b>':''}. ${pr>=0.1&&acts.length?'Suggested support: '+acts.slice(0,2).join('; ')+'.':'No extra action suggested.'} <span class="muted">(Units: change in log-odds. A clinician or administrator always decides.)</span>`}
-['f_age','f_wait','f_dna','f_imd','f_forms','f_app','f_anx','f_rem'].forEach(id=>document.getElementById(id).addEventListener('input',whatIf));whatIf();
+if($('#f_age')){['f_age','f_wait','f_dna','f_imd','f_forms','f_app','f_anx','f_rem'].forEach(id=>document.getElementById(id).addEventListener('input',whatIf));whatIf();}
 
 // ---------- 06 AI on free text (simulated, rule-based) ----------
 const LETTERS=[
@@ -391,7 +391,7 @@ function runNLP(){const t=$('#letter').value;const hits=[];
   const out=`<p class="small muted" style="margin-top:0">Annotated letter</p><div style="white-space:pre-wrap;font-size:.86rem;max-height:190px;overflow:auto;border:1px dashed var(--line);border-radius:10px;padding:10px">${html}</div>
    <div class="mt">${F('Summary',summ)}${F('Suggested codes',codes.map(c=>`<span class="pill pink">${c}</span>`).join('')+'<div class="small muted">Pending clinician confirmation; SNOMED CT mapping in production</div>')}${F('ADHD features',P_(ad))}${F('Autism features',P_(au))}${F('Sleep',P_(sl))}${F('Co-occurring',P_(co))}${F('Medication',P_(by('med')))}${F('Side effects',P_([...new Set(keep.filter(h=>h.cat==='se').map(h=>h.txt))]))}${F('Family history',fam?fam.trim():'')}${F('Safety and risk',alerts.join(' '))}${F("Child's views",(()=>{const v=keep.filter(h=>h.cat==='voice');const isChild=age[1]&&+age[1]<18;if(!isChild)return '<span class="muted">Adult letter: not applicable</span>';return v.length?v.map(h=>`<span class="pill" style="background:#D9F0FF;color:#0b4f7a">"${h.txt.slice(0,70)}${h.txt.length>70?'…':''}"</span>`).join(' ')+'<div class="small muted">Counts as evidence for the audit standard \'child\'s views recorded\' (NG87 1.3.6)</div>':'<span class="pill red">Not documented: flag for NG87 1.3.6 audit</span>'})())}${F('Explicitly absent',negs.map(n=>`<span class="pill grey">${n}</span>`).join(''))}${F('Suggested measures',P_(meas))}</div>`;
   let w=0;const bar=$('#nlpProg');$('#nlpOut').innerHTML='<p class="muted">Reading letter, finding entities, checking negation, drafting summary…</p>';const tm=setInterval(()=>{w+=12;bar.style.width=Math.min(100,w)+'%';if(w>=100){clearInterval(tm);$('#nlpOut').innerHTML=out}},70)}
-seg('letterSeg',k=>{$('#letter').value=LETTERS[+k];runNLP()});$('#letter').value=LETTERS[0];$('#runNlp').addEventListener('click',runNLP);
+if($('#letter')){seg('letterSeg',k=>{$('#letter').value=LETTERS[+k];runNLP()});$('#letter').value=LETTERS[0];$('#runNlp').addEventListener('click',runNLP);}
 
 // ---------- 07 experience ----------
 const THEMES=[
@@ -409,7 +409,7 @@ function showQuotes(i){const T=THEMES[i];$('#quoteTitle').textContent=T.n;$('#qu
   $('#quotes').innerHTML=T.q.map((q,j)=>`<div class="quote">${q}<small>Synthetic comment · ${['Adult service','Under 18s: parent','Under 18s: young person'][j%3]}</small></div>`).join('')+`<div class="insight">${T.neg>T.pos?'<b>Improvement opportunity.</b> Negative sentiment outweighs positive: worth a focused improvement project.':'<b>Strength.</b> Worth celebrating and protecting as the service grows.'}</div>`}
 mk('themes',{type:'bar',data:{labels:THEMES.map(t=>t.n),datasets:[{label:'Positive',data:THEMES.map(t=>t.pos),backgroundColor:'#2e9e6b'},{label:'Neutral',data:THEMES.map(t=>t.neu),backgroundColor:C.grey},{label:'Negative',data:THEMES.map(t=>t.neg),backgroundColor:C.coral}]},
   options:{indexAxis:'y',onClick:(e,els)=>{if(els.length)showQuotes(els[0].index)},plugins:{legend:{position:'bottom'}},scales:{x:{stacked:true,title:{display:true,text:'comments'}},y:{stacked:true}}}});
-showQuotes(4);
+if($('#quotes'))showQuotes(4);
 mk('themeMap',{type:'bubble',data:{datasets:THEMES.map((t,i)=>({label:t.n,data:[{x:Math.round(100*(t.pos-t.neg)/(t.pos+t.neu+t.neg)),y:t.g,r:Math.sqrt(t.c)*1.1}],backgroundColor:[C.teal,C.coral,C.coral,C.sun,'#d6457c',C.pink,C.teal3,'#2e9e6b',C.purple][i]+'bb'}))},
   options:{onClick:(e,els)=>{if(els.length)showQuotes(els[0].datasetIndex)},plugins:{legend:{position:'right'},tooltip:{callbacks:{label:c=>`${c.dataset.label}: net sentiment ${c.raw.x}, volume change ${c.raw.y}%`}}},scales:{x:{min:-60,max:100,title:{display:true,text:'net sentiment (% positive − % negative)'}},y:{min:-30,max:40,title:{display:true,text:'volume change last quarter (%)'}}}}});
 
@@ -422,7 +422,7 @@ const SPCD={};
   ins:'<b>Special cause detected:</b> after the change, every point sits above the old centre line (a run of 8+ is the signal), so the improvement is real rather than chance. Limits are recalculated for the new process.'};}
 {const v=[];for(let w=0;w<52;w++)v.push(w<22?14+randn()*2.2:9.5+randn()*1.6);
  SPCD.forms={labels:v.map((_,i)=>'Wk '+(i+1)),vals:v,lim:ichart(v,22),brk:22,unit:'days',title:'Median days to return pre-assessment forms (I-chart)',sub:'Weekly median. Change at week 23: SMS nudges at day 5 and 10, plus offer of phone help.',
-  ins:'<b>Process shift:</b> the median fell by about 4 days after SMS nudges and phone help. Because non-return is higher in more deprived areas (section 02), this change also narrows an inequality.'};}
+  ins:'<b>Process shift:</b> the median fell by about 4 days after SMS nudges and phone help. Because non-return is higher in more deprived areas (see the pathway page), this change also narrows an inequality.'};}
 {const nd=P.filter(p=>p.pathway==='nd');const n=[],v=[];MONTHS.forEach((_,m)=>{const a=nd.filter(p=>p.m===m);n.push(a.length);v.push(a.filter(p=>p.auStart<=91).length/Math.max(1,a.length))});
  const L=pchart(v,n,10);SPCD.nd={labels:MONTHS,vals:v.map(x=>x*100),lim:{cl:L.cl.map(x=>x*100),ucl:L.ucl.map(x=>x*100),lcl:L.lcl.map(x=>x*100)},brk:10,unit:'%',title:'Autism assessment started within 3 months (p-chart)',sub:'Monthly %, combined pathway. Change from month 11: single combined triage and a weekly MDT clinic. CG128 quality marker.',
   ins:'<b>Step change:</b> a single combined triage and regular MDT clinic moved far more children into the CG128 3-month window. The next question for the data: which children still wait longest, and why?'};}
@@ -434,7 +434,7 @@ function renderSPC(k){const D=SPCD[k];$('#spcTitle').textContent=D.title;$('#spc
     {label:'Centre line',data:L(D.lim.cl),borderColor:C.slate,borderWidth:2,pointRadius:0,spanGaps:false},{label:'Upper control limit',data:L(D.lim.ucl),borderColor:C.pink,borderDash:[6,4],borderWidth:2,pointRadius:0,stepped:true},{label:'Lower control limit',data:L(D.lim.lcl),borderColor:C.pink,borderDash:[6,4],borderWidth:2,pointRadius:0,stepped:true}]},
     options:{plugins:{legend:{position:'bottom'}},scales:{x:{ticks:{maxTicksLimit:14}},y:{title:{display:true,text:D.unit}}}},
     plugins:[{id:'chg',afterDraw(ch){const x=ch.scales.x.getPixelForValue(D.brk),y=ch.scales.y,ctx=ch.ctx;ctx.save();ctx.strokeStyle='#d6457c';ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(x,y.top);ctx.lineTo(x,y.bottom);ctx.stroke();ctx.fillStyle='#d6457c';ctx.font='bold 12px Arimo, Arial';ctx.fillText('Change introduced',x+6,y.top+14);ctx.restore()}}]})}
-seg('spcSeg',renderSPC);renderSPC('obs');
+if($('#spc')){seg('spcSeg',renderSPC);renderSPC('obs');}
 (function(){const teams=[];const pbar=0.11;for(let t=0;t<18;t++){const n=80+Math.floor(rnd()*820);let p=pbar*(1+randn()*0.08);if(t===5)p=0.17;if(t===10)p=0.06;let k=0;for(let j=0;j<n;j++)if(rnd()<p)k++;teams.push({x:n,y:+(100*k/n).toFixed(1),t:'Team '+String.fromCharCode(65+t)})}
   const N0=teams.reduce((a,b)=>a+b.x,0),P0=teams.reduce((a,b)=>a+b.x*b.y/100,0)/N0;const ns=[];for(let n=60;n<=920;n+=20)ns.push(n);const lim=z=>s=>ns.map(n=>({x:n,y:Math.max(0,100*(P0+s*z*Math.sqrt(P0*(1-P0)/n)))}));
   const col=teams.map(t=>{const se=Math.sqrt(P0*(1-P0)/t.x);const d=Math.abs(t.y/100-P0)/se;return d>3.09?(t.y/100>P0?'#a3221f':'#2e9e6b'):d>1.96?C.sun:C.teal});
@@ -444,8 +444,8 @@ seg('spcSeg',renderSPC);renderSPC('obs');
     options:{plugins:{legend:{position:'bottom',labels:{filter:i=>!/lower/.test(i.text)}},tooltip:{callbacks:{label:c=>c.raw.t?`${c.raw.t}: ${c.raw.y}% of ${c.raw.x} patients`:''}}},scales:{x:{type:'linear',title:{display:true,text:'patients in titration'}},y:{title:{display:true,text:'DNA rate %'}}}}})})();
 
 // ---------- 10 clock + nav ----------
-$('#clock').innerHTML=Array.from({length:24},(_,h)=>{const uk=h>=8&&h<18,ind=h>=5&&h<14;return `<div class="${uk&&ind?'both':uk?'uk':ind?'in':'off'}" title="${String(h).padStart(2,'0')}:00 UK"></div>`}).join('');
+H('#clock',Array.from({length:24},(_,h)=>{const uk=h>=8&&h<18,ind=h>=5&&h<14;return `<div class="${uk&&ind?'both':uk?'uk':ind?'in':'off'}" title="${String(h).padStart(2,'0')}:00 UK"></div>`}).join(''));
 (function(){const links=[...document.querySelectorAll('#nav a')];const map={};links.forEach(a=>map[a.getAttribute('href').slice(1)]=a);
   const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.remove('active'));const a=map[e.target.id];if(a){a.classList.add('active');const nv=document.getElementById('nav');nv.scrollLeft=a.offsetLeft-nv.clientWidth/2+a.clientWidth/2}}})},{rootMargin:'-45% 0px -50% 0px'});
   Object.keys(map).forEach(id=>{const el=document.getElementById(id);if(el)io.observe(el)})})();
-runNLP();
+if($('#letter'))runNLP();

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quality improvement · Explore the detail · Concept demo by Dr Mark Aszkenasy</title>
+<meta name="description" content="Concept demo using synthetic data only. Prepared by Dr Mark Aszkenasy for discussion with Care ADHD. Not an official Care ADHD website.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Familjen+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23006165%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%23FF8684%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/explore.css">
+</head>
+<body class="explore">
+<header class="xbar"><div class="wrap">
+  <a class="brand" href="../"><span class="dot"></span><span>Routine data, better care<small>Concept demo · Dr Mark Aszkenasy</small></span></a>
+  <nav><a href="./">All topics</a><a class="story" href="../">Back to the story</a></nav>
+</div></header>
+<main>
+<section class="xhead"><div class="wrap">
+  <div class="crumb"><a href="./">Explore the detail</a> <span>/</span> Quality and safety</div>
+  <h1>Quality improvement</h1>
+  <p class="lead">Statistical process control charts to tell real improvement from noise, and funnel plots to compare teams fairly.</p>
+  <span class="synthetic">Illustrative synthetic data, no real patient information</span>
+</div></section>
+<section class="xbody"><div class="wrap">
+<div class="toolbar"><div class="seg" id="spcSeg"><button data-k="obs" class="on">Monitoring completed on time</button><button data-k="forms">Days to return forms</button><button data-k="nd">Autism assessment within 3 months</button></div></div>
+  <div class="cards c21">
+    <div class="card"><h3 id="spcTitle">SPC chart</h3><div class="sub" id="spcSub"></div><div class="chartbox tall"><canvas id="spc"></canvas></div></div>
+    <div class="card"><h3>Benchmarking: DNA rate by clinic team</h3><div class="sub">Funnel plot with 95% and 99.8% limits</div><div class="chartbox tall"><canvas id="funnel"></canvas></div></div>
+  </div>
+  <div class="insight" id="spcInsight"></div>
+<nav class="pager"><a href="outcomes.html"><small>Previous</small>Outcomes</a><a class="nx" href="autism-adhd.html"><small>Next</small>Autism and ADHD together (7+)</a></nav>
+</div></section>
+</main>
+<footer class="xfoot"><div class="wrap">Concept demo by Dr Mark Aszkenasy. Illustrative synthetic data, no real patient information. Not an official Care ADHD website.</div></footer>
+<script src="../vendor/chart.umd.js"></script>
+<script src="../vendor/chartjs-chart-sankey.min.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/audit.js"></script>
+</body>
+</html>

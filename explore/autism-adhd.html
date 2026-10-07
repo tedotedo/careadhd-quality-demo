@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autism and ADHD together (7+) · Explore the detail · Concept demo by Dr Mark Aszkenasy</title>
+<meta name="description" content="Concept demo using synthetic data only. Prepared by Dr Mark Aszkenasy for discussion with Care ADHD. Not an official Care ADHD website.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Familjen+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23006165%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%23FF8684%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/explore.css">
+</head>
+<body class="explore">
+<header class="xbar"><div class="wrap">
+  <a class="brand" href="../"><span class="dot"></span><span>Routine data, better care<small>Concept demo · Dr Mark Aszkenasy</small></span></a>
+  <nav><a href="./">All topics</a><a class="story" href="../">Back to the story</a></nav>
+</div></header>
+<main>
+<section class="xhead"><div class="wrap">
+  <div class="crumb"><a href="./">Explore the detail</a> <span>/</span> Children and families</div>
+  <h1>Autism and ADHD together (7+)</h1>
+  <p class="lead">A combined neurodevelopmental pathway for children aged 7 and over, aligned with NICE CG128, CG170 and NG87.</p>
+  <span class="synthetic">Illustrative synthetic data, no real patient information</span>
+</div></section>
+<section class="xbody"><div class="wrap">
+<div class="nd-hero">
+    <h3>One referral, one history, one joined-up formulation</h3>
+    <p style="margin:0">Aligned with NICE CG128 (autism in under 19s: recognition, referral and diagnosis), NICE CG170 (autism in under 19s: support and management) and NICE NG87 (ADHD). Quality marker built in: autism diagnostic assessment started within 3 months of referral (CG128).</p>
+    <div class="mt"><span class="pill">Parent and teacher questionnaires</span><span class="pill">Developmental history</span><span class="pill">Structured observation</span><span class="pill">Multidisciplinary formulation</span><span class="pill">Co-occurring conditions screened</span><span class="pill">Sleep assessed as standard</span></div>
+  </div>
+  <div class="steps">
+    <div class="step"><b>Referral</b>GP referral via e-RS (Right to Choose) or private. Single intake for autism and ADHD.</div>
+    <div class="step"><b>Triage</b>Clinical review of referral, safeguarding check, urgency, prior reports.</div>
+    <div class="step"><b>Questionnaires</b>Parent and school: e.g. SNAP-IV or Conners 3, SDQ, SRS-2 or SCQ, sleep (CSHQ).</div>
+    <div class="step dual"><b>Developmental history</b>Autism-informed history (e.g. 3di / ADI-R style), family history including genetics.</div>
+    <div class="step dual"><b>Observation</b>Structured observation (e.g. ADOS-2) plus ADHD clinical interview, school information.</div>
+    <div class="step dual"><b>MDT formulation</b>Paediatrics / psychiatry, psychology, SLT. Differential diagnosis and co-occurring conditions.</div>
+    <div class="step"><b>Plan + feedback</b>Profile of strengths and needs, school letter, sleep plan, titration if ADHD treatment chosen.</div>
+  </div>
+  <div class="kpis mt2" id="ndKpis"></div>
+  <div class="cards c2">
+    <div class="card"><h3>Diagnostic outcomes</h3><div class="sub">Children 7 to 17 completing the combined pathway</div><div class="chartbox"><canvas id="ndOutcome"></canvas></div></div>
+    <div class="card"><h3>Titration steps to a stable dose</h3><div class="sub">Dose or drug changes before stability</div><div class="chartbox"><canvas id="ndSteps"></canvas></div></div>
+  </div>
+  <div class="cards c2 mt">
+    <div class="card"><h3>Side effects reported during titration</h3><div class="sub">% of children reporting each, ADHD alone vs ADHD + autism</div><div class="chartbox"><canvas id="ndSE"></canvas></div></div>
+    <div class="card"><h3>Outcomes over 12 months</h3><div class="sub">Mean ADHD symptom score (SNAP-IV style, 0–54, lower is better) for children starting medication</div><div class="chartbox"><canvas id="ndTraj"></canvas></div></div>
+  </div>
+  <div class="cards c2 mt">
+    <div class="card flat"><h3>Outcome measures suited to autistic children with ADHD</h3>
+      <div class="tablewrap"><table><thead><tr><th>Domain</th><th>Example measure</th><th>Why it matters</th></tr></thead><tbody>
+      <tr><td>ADHD symptoms</td><td>SNAP-IV / Conners 3 (parent and teacher)</td><td>Core response to treatment, across two settings</td></tr>
+      <tr><td>Everyday functioning</td><td>WFIRS-P</td><td>What families actually notice at home and school</td></tr>
+      <tr><td>Sleep</td><td>Children's Sleep Habits Questionnaire</td><td>Very common in autism, worsened by stimulants</td></tr>
+      <tr><td>Anxiety and mood</td><td>Spence Children's Anxiety Scale, SDQ</td><td>Anxiety can mimic or mask treatment response</td></tr>
+      <tr><td>Irritability</td><td>ABC irritability subscale</td><td>More frequent side effect when autism co-occurs</td></tr>
+      <tr><td>Goals that matter</td><td>Goal-Based Outcomes (child and family set)</td><td>Personal, neurodiversity-affirming, sensitive to change</td></tr>
+      <tr><td>Global change</td><td>CGI-Severity / Improvement</td><td>Quick clinician rating for every review</td></tr>
+      <tr><td>Participation</td><td>School attendance, exclusions</td><td>Real-world outcome commissioners care about</td></tr>
+      </tbody></table></div></div>
+    <div class="card flat"><h3>What the combined data could tell us</h3>
+      <ul class="tick">
+        <li>Which children need slower titration, lower starting doses or earlier switches, so we plan fewer, better-informed steps.</li>
+        <li>Whether treating sleep first (behavioural plan, then melatonin where appropriate) improves stimulant tolerability.</li>
+        <li>How long the autism assessment takes against the CG128 3-month marker, and what speeds it up.</li>
+        <li>Whether outcomes are equal across deprivation, ethnicity and sex, including the under-recognition of autism in girls.</li>
+        <li>Which school information is most predictive, so we ask families for less but better information.</li>
+      </ul>
+      <div class="insight" id="ndInsight"></div>
+    </div>
+  </div>
+<nav class="pager"><a href="improvement.html"><small>Previous</small>Quality improvement</a><a class="nx" href="voice.html"><small>Next</small>The child's own voice</a></nav>
+</div></section>
+</main>
+<footer class="xfoot"><div class="wrap">Concept demo by Dr Mark Aszkenasy. Illustrative synthetic data, no real patient information. Not an official Care ADHD website.</div></footer>
+<script src="../vendor/chart.umd.js"></script>
+<script src="../vendor/chartjs-chart-sankey.min.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/audit.js"></script>
+</body>
+</html>

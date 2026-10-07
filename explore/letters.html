@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI on clinic letters · Explore the detail · Concept demo by Dr Mark Aszkenasy</title>
+<meta name="description" content="Concept demo using synthetic data only. Prepared by Dr Mark Aszkenasy for discussion with Care ADHD. Not an official Care ADHD website.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Familjen+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23006165%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%23FF8684%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/explore.css">
+</head>
+<body class="explore">
+<header class="xbar"><div class="wrap">
+  <a class="brand" href="../"><span class="dot"></span><span>Routine data, better care<small>Concept demo · Dr Mark Aszkenasy</small></span></a>
+  <nav><a href="./">All topics</a><a class="story" href="../">Back to the story</a></nav>
+</div></header>
+<main>
+<section class="xhead"><div class="wrap">
+  <div class="crumb"><a href="./">Explore the detail</a> <span>/</span> AI, people and governance</div>
+  <h1>AI on clinic letters</h1>
+  <p class="lead">A simulated demo of turning clinic letters into structured fields for a clinician to check. Edit the letter and run it again.</p>
+  <span class="synthetic simulated">Simulated demo: simple rules running in your browser, synthetic letters</span>
+</div></section>
+<section class="xbody"><div class="wrap">
+<div class="toolbar"><div class="seg" id="letterSeg"><button data-k="0" class="on">Child, 9: ADHD + autism query</button><button data-k="1">Adult, 31: titration review</button><button data-k="2">Teen, 14: sleep and anxiety</button></div>
+    <button class="btn primary" id="runNlp">Extract and summarise</button></div>
+  <div class="cards c2">
+    <div class="card"><h3>Synthetic clinic letter</h3><div class="sub">Invented text, no real person.</div><textarea id="letter" spellcheck="false"></textarea>
+      <div class="legend mt"><span class="hl symptom">ADHD feature</span><span class="hl autism">Autism feature</span><span class="hl sleep">Sleep</span><span class="hl comorb">Co-occurring</span><span class="hl med">Medication</span><span class="hl school">School / function</span><span class="hl se">Side effect</span><span class="hl voice">Child's views</span><span class="hl risk">Risk / safeguarding</span></div></div>
+    <div class="card"><h3>Structured output for clinician review</h3><div class="progress"><i id="nlpProg"></i></div><div class="annot" id="nlpOut"><p class="muted">Press <b>Extract and summarise</b>.</p></div></div>
+  </div>
+  <p class="small muted mt">In production this would use a governed language model inside Care ADHD's own secure environment, mapped to SNOMED CT, with every extracted field confirmed by a clinician (human in the loop) and accuracy audited against a gold-standard sample.</p>
+<nav class="pager"><a href="experience.html"><small>Previous</small>Patient and family experience</a><a class="nx" href="governance.html"><small>Next</small>Governance</a></nav>
+</div></section>
+</main>
+<footer class="xfoot"><div class="wrap">Concept demo by Dr Mark Aszkenasy. Illustrative synthetic data, no real patient information. Not an official Care ADHD website.</div></footer>
+<script src="../vendor/chart.umd.js"></script>
+<script src="../vendor/chartjs-chart-sankey.min.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/audit.js"></script>
+</body>
+</html>
