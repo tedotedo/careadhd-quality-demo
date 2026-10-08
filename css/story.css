@@ -243,3 +243,16 @@ body.presenting .hdr .hnav a{display:none}
   .jaxis i:nth-child(even){display:none}
   .jtrack .flag b{font-size:1.1rem}
 }
+/* short laptop screens (e.g. 1366x768): trim vertical spacing, keep type sizes */
+@media (min-width:901px) and (max-height:820px){
+  .scene{padding:70px 0 40px}
+  .eyebrow{margin-bottom:.75rem}
+  h2{margin-bottom:.75rem}
+  .sub{margin-bottom:1.15rem}
+  #s-close .sub{margin-bottom:1.2rem}
+  .minis{margin-top:1rem}
+  .minis a{padding:.8rem 1.1rem}
+  .record{padding:1.1rem 1.5rem}
+  .rechead{margin-bottom:.4rem}
+  .fld{padding:.38rem 0}
+}
