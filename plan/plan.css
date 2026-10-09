@@ -52,8 +52,8 @@
 .stations .fz{margin-top:.55rem;text-align:left}
 
 /* 4 value tiles */
-.tiles{display:grid;grid-template-columns:repeat(3,1fr) 1.15fr;grid-template-rows:auto auto;gap:1rem}
-.tile.out{grid-column:4;grid-row:1/span 2}
+.tiles{display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:auto auto;gap:1rem}
+.tile.out{grid-column:3/span 3;grid-row:2}
 .tile{background:#fff;border-radius:18px;padding:1.1rem 1.2rem 1rem;box-shadow:0 18px 40px -30px rgba(0,60,64,.35),0 0 0 1px rgba(0,60,64,.06);display:flex;flex-direction:column}
 .tile .k{font:700 1.08rem/1.15 var(--head);color:var(--teal);letter-spacing:-.01em}
 .tile p{margin:.45rem 0 .9rem;font-size:.84rem;line-height:1.45;color:var(--slate);flex:1}
@@ -218,3 +218,9 @@
 .gbar{top:.45rem;height:1.2rem}
 @media (max-width:900px){.split{grid-template-columns:1fr}}
 @media (max-width:900px){.golive{display:none}}
+/* national data scene: denser cards */
+@media (min-width:901px){#p-data .points li{padding:1rem 1.3rem;grid-template-columns:6.4rem 1fr}#p-data .points .fz{grid-column:2}}
+#p-data .points b{font-size:1.35rem}
+#p-data .points p{font-size:.92rem;line-height:1.45}
+@media (max-height:820px) and (min-width:901px){#p-data .points{gap:.7rem}#p-data .points li{padding:.8rem 1.1rem}#p-data .points p{font-size:.84rem;line-height:1.4}}
+#p-data .points .fz{justify-self:start;margin-top:.1rem}

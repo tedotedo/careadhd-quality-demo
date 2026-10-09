@@ -36,10 +36,10 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return
   if(INIT[s.id]&&!done[s.id]){done[s.id]=1;INIT[s.id]()}}),{threshold:.18});
 
 const PH=[
- {w:'Weeks 0–2',n:'Set up and baseline',c:'#9adbc6',f:3.3,from:0,to:2,p:'Name owners. Fix scope and measures. Map data sources. Start the DPIA. Hazard identification workshop. MHRA classification note. Measure the baseline, including the outcome measure.',d:['Signed one-page value case','DPIA draft','Hazard log v0.1','Baseline figures']},
+ {w:'Weeks 0–2',n:'Set up and baseline',c:'#9adbc6',f:3.3,from:0,to:2,p:'Name owners. Fix scope and measures. Map data sources, including to MHSDS items, and check our current MHSDS completeness. Start the DPIA. Hazard identification workshop. MHRA classification note. Measure the baseline, including the outcome measure.',d:['Signed one-page value case','DPIA draft','Hazard log v0.1','Baseline figures','Audit-to-MHSDS data map']},
  {w:'Weeks 3–6',n:'Build and validate',c:'#FF8684',f:4,from:3,to:6,p:'Encode the titration monitoring rules, each signed off clinically. Run in shadow mode on historical data, with no flags shown. Compare against a manual audit sample. Specify and build the stable-dose rules. Design the worklist with champions.',d:['Validated titration rules','Accuracy vs manual audit','Clinical safety case','DPIA approved','Go-live decision']},
  {w:'Weeks 7–10',n:'Live with champions',c:'#FFD35C',f:4,from:7,to:10,p:'Titration rules live. Stable-dose rules through shadow mode, then live once validated. Champions sign off every flag. Weekly review of flags, false positives, time taken and hazards.',d:['Weekly metrics',"First 'ready to transfer' list",'Updated hazard log','Training material']},
- {w:'Weeks 11–13',n:'Evaluate and decide',c:'#ffffff',f:3.3,from:11,to:13,p:'Compare against baseline. Clinician and GP feedback. Running cost. Safety review.',d:['Evaluation and assurance report for the board and commissioners','Recommendation for day 90']}];
+ {w:'Weeks 11–13',n:'Evaluate and decide',c:'#ffffff',f:3.3,from:11,to:13,p:'Compare against baseline, including MHSDS completeness. Clinician and GP feedback. Running cost. Safety review.',d:['Evaluation and assurance report for the board and commissioners','Recommendation for day 90']}];
 
 /* ---------- 1 opening: 13-week strip ---------- */
 (function(){let h='';for(let w=0;w<14;w++){const p=PH.find(p=>w>=p.from&&w<=p.to);h+=`<i style="background:${p.c};opacity:${p.c==='#ffffff'?.85:1};transition-delay:${(.9+w*.09).toFixed(2)}s"></i>`}
