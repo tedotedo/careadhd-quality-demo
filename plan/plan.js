@@ -35,6 +35,12 @@ const INIT={},done={};
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const s=e.target;s.classList.add('in');
   if(INIT[s.id]&&!done[s.id]){done[s.id]=1;INIT[s.id]()}}),{threshold:.18});
 
+/* ---------- the whole journey: night, dawn and day behind the flow ---------- */
+if(window.Sky&&$('#skyJourney')){const fl=$$('#jflow .fl');
+  const sky=Sky.mount($('#skyJourney'),{scene:$('#p-journey'),seed:3,start:'night',pos:{night:[50,124],dawn:[88,97],day:[76,25],dusk:[50,102]},moon:[78,18]});
+  sky.play([{ph:'night',f:0,ms:5200},{ph:'dawn',f:1,ms:4600,rest:1},{ph:'day',f:1,ms:5200},{ph:'dusk',f:2,ms:4600},{ph:'night',f:2,ms:4600}],
+    (i,c)=>fl.forEach((e,j)=>e.classList.toggle('now',j===c.f)))}
+
 const PH=[
  {w:'Weeks 0–2',n:'Set up and baseline',c:'#9adbc6',f:3.3,from:0,to:2,p:'Name owners. Fix scope and measures. Map data sources, including to MHSDS items, and check our current MHSDS completeness. Start the DPIA. Hazard identification workshop. MHRA classification note. Measure the baseline, including the outcome measure.',d:['Signed one-page value case','DPIA draft','Hazard log v0.1','Baseline figures','Audit-to-MHSDS data map']},
  {w:'Weeks 3–6',n:'Build and validate',c:'#FF8684',f:4,from:3,to:6,p:'Encode the titration monitoring rules, each signed off clinically. Run in shadow mode on historical data, with no flags shown. Compare against a manual audit sample. Specify and build the stable-dose rules. Design the worklist with champions.',d:['Validated titration rules','Accuracy vs manual audit','Clinical safety case','DPIA approved','Go-live decision']},

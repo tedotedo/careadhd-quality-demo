@@ -198,11 +198,11 @@ INIT['s-transition']=()=>{const pl=TA.filter(t=>t.planned),un=TA.filter(t=>!t.pl
 /* ---------- 7 map + follow the sun ---------- */
 (function(){const M=MAPDOTS,[lx,ly]=M.lon,[bx,by]=M.blr,mx=(lx+bx)/2,my=(ly+by)/2,dx=bx-lx,dy=by-ly,L=Math.hypot(dx,dy),cx=mx+dy/L*170,cy=my-dx/L*170;
   const path=`M${lx} ${ly}Q${cx.toFixed(1)} ${cy.toFixed(1)} ${bx} ${by}`;
-  $('#map').innerHTML=`<path class="land" d="${M.d}"/><path class="arc" d="${path}"/><path class="arc2" id="arcp" d="${path}"/>
+  $('#map').innerHTML=`<defs><radialGradient id="gLon"><stop offset="0" stop-color="#FFD35C" stop-opacity=".9"/><stop offset="1" stop-color="#FFD35C" stop-opacity="0"/></radialGradient><radialGradient id="gBlr"><stop offset="0" stop-color="${C.coral}" stop-opacity=".9"/><stop offset="1" stop-color="${C.coral}" stop-opacity="0"/></radialGradient></defs><path class="land" d="${M.d}"/><path class="arc" d="${path}"/><path class="arc2" id="arcp" d="${path}"/>
    <circle r="5" fill="#fff"><animateMotion dur="3.4s" repeatCount="indefinite" path="${path}"/></circle>
    <circle r="5" fill="${C.coral}"><animateMotion dur="3.4s" begin="1.7s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear" path="${path}"/></circle>
-   <circle class="pulse" cx="${lx}" cy="${ly}" r="10" fill="none" stroke="#9adbc6" stroke-width="2"/><circle cx="${lx}" cy="${ly}" r="8" fill="#9adbc6"/>
-   <circle class="pulse" cx="${bx}" cy="${by}" r="10" fill="none" stroke="${C.coral}" stroke-width="2" style="animation-delay:1.2s"/><circle cx="${bx}" cy="${by}" r="8" fill="${C.coral}"/>
+   <circle class="pulse" cx="${lx}" cy="${ly}" r="10" fill="none" stroke="#9adbc6" stroke-width="2"/><circle class="glow glon" cx="${lx}" cy="${ly}" r="26" fill="url(#gLon)"/><circle cx="${lx}" cy="${ly}" r="8" fill="#9adbc6"/>
+   <circle class="pulse" cx="${bx}" cy="${by}" r="10" fill="none" stroke="${C.coral}" stroke-width="2" style="animation-delay:1.2s"/><circle class="glow gblr" cx="${bx}" cy="${by}" r="26" fill="url(#gBlr)"/><circle cx="${bx}" cy="${by}" r="8" fill="${C.coral}"/>
    <text class="city" x="${lx+18}" y="${ly-22}">London</text><text class="role" x="${lx+18}" y="${ly-2}">UK clinical team</text>
    <text class="city" x="${bx}" y="${by+40}" text-anchor="middle">Bengaluru</text><text class="role" x="${bx}" y="${by+62}" text-anchor="middle">Data and engineering hub</text>`;
   const tf=z=>new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:z});
@@ -211,10 +211,22 @@ INIT['s-transition']=()=>{const pl=TA.filter(t=>t.planned),un=TA.filter(t=>!t.pl
     const off=((mins('Asia/Kolkata',d)-mins('Europe/London',d))+1440)%1440,uk=[8*60,18*60],bl=[9*60-off,18*60-off],ov=[Math.max(uk[0],bl[0]),Math.min(uk[1],bl[1])];
     const P_=m=>(100*m/1440).toFixed(2)+'%',seg=(a,b,c)=>`<i style="left:${P_(a)};width:${P_(b-a)};background:${c}"></i>`,now=`<span class="now" style="left:${P_(mins('Europe/London',d))}"></span>`;
     const h=x=>{const v=x/60;return(v%1?Math.floor(v)+'½':v)};
-    $('#sun').innerHTML=`<div class="row"><span>UK clinics</span><div class="bar">${seg(uk[0],uk[1],'#9adbc6')}${now}</div></div>
+    const st=Sky.sunTimes(d,...Sky.LONDON),nm=mins('Europe/London',d),isDay=nm>=st.rise&&nm<=st.set;
+    $('#sun').innerHTML=`<div class="row sky-row"><span>UK daylight</span><div class="bar" style="background:${Sky.cssGradient(st,true)}"><em class="sunmark ${isDay?'d':'n'}" style="left:${P_(nm)}"></em><small style="left:${P_(st.rise)}">${Sky.hm(st.rise)}</small><small style="left:${P_(st.set)}">${Sky.hm(st.set)}</small></div></div>
+      <div class="row"><span>UK clinics</span><div class="bar">${seg(uk[0],uk[1],'#9adbc6')}${now}</div></div>
       <div class="row"><span>Bengaluru team</span><div class="bar">${seg(bl[0],bl[1],C.coral)}${now}</div></div>
       <div class="row"><span>Working together</span><div class="bar">${seg(ov[0],ov[1],'#fff')}${now}</div></div>
       <div class="ax"><span></span><div><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div></div>
       <div class="ax" style="margin-top:.5rem"><span></span><div style="justify-content:flex-start;color:rgba(255,255,255,.75)">UK time. ${h(uk[1]-bl[0])} hours of cover a day, ${h(ov[1]-ov[0])} hours of overlap.</div></div>`}
-  tick();setInterval(tick,30000)})();
+  tick();setInterval(tick,30000);
+  /* one day of follow-the-sun working, told through the sky */
+  const DC=[{ph:'dusk',k:'Evening',t:'18:00 UK',n:'Clinics close. The day\'s records are pseudonymised for the overnight run.',ms:5200},
+    {ph:'night',k:'Overnight',t:'Overnight',n:'The NICE audit and safety checks run. Bengaluru reviews the results from 09:00 IST (04:30 UK).',ms:6200},
+    {ph:'dawn',k:'Dawn',t:'07:00 UK',n:'The worklist is ready before UK clinics open.',ms:5200,rest:1},
+    {ph:'day',k:'Morning',t:'09:00 UK',n:'Clinicians act on their flags. Both teams work together until 13:30 UK.',ms:6200}];
+  const sc=$('#s-bengaluru'),sky=Sky.mount($('#skyBlr'),{scene:sc,seed:5,start:'dusk',pos:{night:[50,124],dawn:[87,95],day:[73,19],dusk:[43,97]},moon:[70,15]});
+  $('#dcyc').innerHTML=DC.map((c,i)=>`<button type="button" data-i="${i}"><i class="ic ${c.ph}"></i>${c.k}</button>`).join('');
+  const bt=[...$('#dcyc').children];bt.forEach((b,i)=>b.addEventListener('click',()=>sky.go(i)));
+  sky.play(DC,(i,c)=>{bt.forEach((b,j)=>{b.classList.toggle('on',i===j);b.setAttribute('aria-pressed',i===j)});$('#dcnote').innerHTML=`<b>${c.t}</b>${c.n}`});
+  })();
 })();

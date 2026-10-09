@@ -10,6 +10,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23006165%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%23FF8684%22/%3E%3C/svg%3E">
 <link rel="stylesheet" href="../css/story.css">
 <link rel="stylesheet" href="plan.css">
+<link rel="stylesheet" href="../css/sky.css">
 </head>
 <body class="plan">
 <header class="hdr" id="hdr">
@@ -94,6 +95,7 @@
 
 <!-- 5 JOURNEY -->
 <section class="scene dark" id="p-journey" data-name="The whole journey">
+  <div class="sky" id="skyJourney"></div>
   <div class="wrap stack">
     <div class="copy narrow">
       <p class="eyebrow rv">04 · The whole journey · Principle 1</p>
@@ -101,9 +103,9 @@
       <p class="sub rv">Every flag has a named owner and an escalation route.</p>
     </div>
     <div class="flow" id="jflow">
-      <div class="fl rv"><span class="t">Overnight</span><b>The audit runs</b><p>On pseudonymised data. The worklist is ready by the UK morning.</p></div>
-      <div class="fl hi rv"><span class="t">UK morning</span><b>Treating clinician</b><p>Sees their own patients' flags with the standard, the evidence and the gap. Signs off each one: action taken, or not applicable with a reason.</p></div>
-      <div class="fl rv"><span class="t">Next night</span><b>The audit checks again</b><p>Confirms whether the gap has closed. Unactioned flags escalate to the pathway clinical lead after an agreed interval.</p></div>
+      <div class="fl rv" data-ic="moon"><span class="t">Overnight</span><b>The audit runs</b><p>On pseudonymised data. The worklist is ready by the UK morning.</p></div>
+      <div class="fl hi rv" data-ic="sun"><span class="t">UK morning</span><b>Treating clinician</b><p>Sees their own patients' flags with the standard, the evidence and the gap. Signs off each one: action taken, or not applicable with a reason.</p></div>
+      <div class="fl rv" data-ic="moon"><span class="t">Next night</span><b>The audit checks again</b><p>Confirms whether the gap has closed. Unactioned flags escalate to the pathway clinical lead after an agreed interval.</p></div>
       <div class="fl rv"><span class="t">Ready list</span><b>GP</b><p>Receives a shared-care request only for children on the ready list. Returned results are checked nightly.</p></div>
       <div class="fl rv"><span class="t">Oversight</span><b>Lead, committee, board</b><p>Pathway lead: compliance by standard and team. Governance committee: a monthly report. Board and commissioners: a short assurance summary.</p></div>
     </div>
@@ -242,6 +244,7 @@
 
 <p class="badge" id="badge">A proposal by Dr Mark Aszkenasy for discussion with Care ADHD. Not an official Care ADHD website.</p>
 <p class="hint" id="hint">← → or space to move · F full screen · Esc to leave</p>
+<script src="../js/sky.js"></script>
 <script src="plan.js"></script>
 </body>
 </html>

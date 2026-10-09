@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Familjen+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23006165%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%23FF8684%22/%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/story.css">
+<link rel="stylesheet" href="css/sky.css">
 </head>
 <body>
 <header class="hdr" id="hdr">
@@ -115,12 +116,15 @@
 
 <!-- 7 BENGALURU -->
 <section class="scene dark deep" id="s-bengaluru" data-name="UK + Bengaluru">
+  <div class="sky" id="skyBlr"></div>
   <div class="wrap g2 wide-r">
     <div class="copy">
       <p class="eyebrow rv">06 · UK + Bengaluru</p>
       <h2 class="rv">Two cities. One quality team.</h2>
       <p class="sub rv">Bengaluru prepares the data before UK clinics open. UK clinicians act on it the same day, and the results are published in both countries.</p>
       <div class="clocks rv"><div><span>London</span><b id="t_lon">–</b></div><div><span>Bengaluru</span><b id="t_blr">–</b></div></div>
+      <div class="daycyc rv" id="dcyc" role="group" aria-label="One day of follow-the-sun working"></div>
+      <p class="dcnote rv" id="dcnote" aria-live="polite"></p>
       <a class="more rv" href="explore/uk-bengaluru.html">See the detail: follow-the-sun working →</a>
     </div>
     <figure class="vis mapwrap rv">
@@ -164,6 +168,7 @@
 <script src="js/app.js"></script>
 <script src="js/audit.js"></script>
 <script src="js/mapdots.js"></script>
+<script src="js/sky.js"></script>
 <script src="js/story.js"></script>
 </body>
 </html>

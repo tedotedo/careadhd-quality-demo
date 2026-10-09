@@ -1,0 +1,84 @@
+/* Sky: layered night, dawn, day and dusk. Concept demo by Dr Mark Aszkenasy.
+   Only opacity and transform animate, so the browser can composite it cheaply. */
+.sky{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;--sx:80%;--sy:110%;--mx:80%;--my:-30%}
+.sky>*{position:absolute;inset:0}
+.sky .l{opacity:0;transition:opacity 2.8s ease;will-change:opacity}
+.sky[data-phase=night] .l.night,.sky[data-phase=dawn] .l.dawn,.sky[data-phase=day] .l.day,.sky[data-phase=dusk] .l.dusk{opacity:1}
+.sky .l.night{background:radial-gradient(70% 60% at 78% 8%,rgba(60,110,150,.28),transparent 70%),linear-gradient(180deg,#01121b 0%,#021f2b 50%,#032f35 100%)}
+.sky .l.dawn{background:
+  radial-gradient(48% 62% at var(--agx,84%) 104%,rgba(255,224,150,.80) 0,rgba(255,170,130,.55) 26%,rgba(255,134,132,.20) 52%,transparent 74%),
+  radial-gradient(120% 40% at var(--agx,70%) 100%,rgba(255,134,132,.35),transparent 70%),
+  linear-gradient(180deg,#03222f 0%,#0b3a4a 42%,#2f5063 70%,#6b5d70 100%)}
+.sky .l.day{background:
+  radial-gradient(42% 52% at var(--ygx,80%) var(--ygy,14%),rgba(255,244,205,.42) 0,rgba(255,211,92,.14) 35%,transparent 70%),
+  linear-gradient(180deg,#05555c 0%,#0a6b71 48%,#178184 100%)}
+.sky .l.dusk{background:
+  radial-gradient(52% 64% at var(--dgx,10%) 104%,rgba(255,190,140,.70) 0,rgba(255,134,132,.48) 28%,rgba(240,176,200,.18) 54%,transparent 76%),
+  radial-gradient(120% 40% at var(--dgx,25%) 100%,rgba(240,176,200,.28),transparent 70%),
+  linear-gradient(180deg,#041a2c 0%,#152c4a 45%,#3d3a5c 74%,#694a66 100%)}
+/* horizon catching the light */
+.sky .hz{top:auto;height:38%;bottom:0;opacity:0;transition:opacity 2.8s ease;background:linear-gradient(0deg,rgba(255,170,120,.28),transparent)}
+.sky .hz::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,transparent 0,rgba(255,211,92,.9) 50%,transparent 100%)}
+.sky[data-phase=dawn] .hz{opacity:1}.sky[data-phase=dusk] .hz{opacity:.8}
+.sky[data-phase=dusk] .hz::after{background:linear-gradient(90deg,rgba(255,134,132,.9) 0,rgba(255,134,132,.4) 45%,transparent 100%)}
+/* stars */
+.sky .stars{opacity:0;transition:opacity 2.8s ease}
+.sky .stars svg{position:absolute;inset:0;width:100%;height:100%}
+.sky svg.st circle{fill:#fff}
+.sky[data-phase=night] .stars{opacity:1}.sky[data-phase=dusk] .stars{opacity:.45}.sky[data-phase=dawn] .stars{opacity:.15}
+.sky svg.st.s1{animation:twk 4.2s ease-in-out infinite}
+.sky svg.st.s2{animation:twk 5.8s ease-in-out 1.3s infinite}
+.sky svg.st.s3{animation:twk 3.4s ease-in-out .6s infinite}
+@keyframes twk{0%,100%{opacity:1}50%{opacity:.3}}
+/* sun: disc, halo, slow rays */
+.sky .orb{transform:translate(var(--sx),var(--sy));transition:transform 3.6s cubic-bezier(.45,0,.2,1),opacity 2.4s ease;will-change:transform}
+.sky .orb>*{position:absolute;left:0;top:0;border-radius:50%}
+.sky .orb .rays{width:46rem;height:46rem;margin:-23rem 0 0 -23rem;background:repeating-conic-gradient(from 0deg,rgba(255,232,170,.13) 0 2.2deg,transparent 2.2deg 12deg);
+  -webkit-mask:radial-gradient(circle,#000 6%,rgba(0,0,0,.5) 28%,transparent 62%);mask:radial-gradient(circle,#000 6%,rgba(0,0,0,.5) 28%,transparent 62%);animation:skyspin 140s linear infinite}
+.sky .orb .halo{width:24rem;height:24rem;margin:-12rem 0 0 -12rem;background:radial-gradient(circle,rgba(255,226,150,.55) 0,rgba(255,170,120,.22) 30%,transparent 66%)}
+.sky .orb .disc{width:4.2rem;height:4.2rem;margin:-2.1rem 0 0 -2.1rem;background:radial-gradient(circle at 42% 40%,#fffbea 0,#ffe7a3 38%,#FFD35C 70%,#ffb86b 100%);box-shadow:0 0 30px 8px rgba(255,211,92,.55),0 0 90px 30px rgba(255,170,110,.25)}
+.sky .orb .warm{width:4.2rem;height:4.2rem;margin:-2.1rem 0 0 -2.1rem;background:radial-gradient(circle at 45% 40%,#ffe0b0 0,#ff9f7a 60%,#FF8684 100%);opacity:0;transition:opacity 2.6s ease}
+.sky[data-phase=dawn] .orb .warm,.sky[data-phase=dusk] .orb .warm{opacity:.85}
+.sky[data-phase=night] .orb{opacity:0}
+/* moon */
+.sky .moon{transform:translate(var(--mx),var(--my));transition:transform 3.6s cubic-bezier(.45,0,.2,1),opacity 2.4s ease;opacity:0}
+.sky .moon i{position:absolute;left:0;top:0;width:2.6rem;height:2.6rem;margin:-1.3rem 0 0 -1.3rem;border-radius:50%;box-shadow:inset -.62rem .35rem 0 0 #f6f1df;filter:drop-shadow(0 0 .7rem rgba(255,246,214,.55))}
+.sky .moon b{position:absolute;left:0;top:0;width:12rem;height:12rem;margin:-6rem 0 0 -6rem;border-radius:50%;background:radial-gradient(circle,rgba(220,235,255,.16),transparent 65%)}
+.sky[data-phase=night] .moon{opacity:1}.sky[data-phase=dusk] .moon{opacity:.35}
+@keyframes skyspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.sky *,.sky{animation:none!important;transition:none!important}}
+
+/* phase chooser used in the story scenes */
+.daycyc{display:flex;flex-wrap:wrap;gap:.4rem;margin:.2rem 0 .7rem}
+.daycyc button{display:inline-flex;align-items:center;gap:.45rem;font:600 .74rem var(--body);color:rgba(255,255,255,.72);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:.32rem .75rem .32rem .5rem;cursor:pointer;transition:background .4s,color .4s,border-color .4s}
+.daycyc button:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+.daycyc button.on{color:#14262b;background:#fff;border-color:#fff}
+.daycyc button:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.daycyc .ic{width:.8rem;height:.8rem;border-radius:50%;flex:none}
+.ic.night{box-shadow:inset -.22rem .12rem 0 0 #f6f1df}
+.ic.dawn{background:linear-gradient(0deg,#FF8684 0 45%,#FFD35C 46%);clip-path:inset(0 0 40% 0);transform:translateY(.12rem)}
+.ic.day{background:#FFD35C;box-shadow:0 0 0 .18rem rgba(255,211,92,.3)}
+.ic.dusk{background:linear-gradient(0deg,#F0B0C8 0 45%,#FF8684 46%);clip-path:inset(0 0 40% 0);transform:translateY(.12rem)}
+.daycyc button.on .ic.night{box-shadow:inset -.22rem .12rem 0 0 #3F4549}
+.dcnote{margin:0 0 1.1rem;min-height:2.9em;font-size:.86rem;line-height:1.45;color:rgba(255,255,255,.82);max-width:30rem}
+.dcnote b{color:var(--sun);font-weight:700;margin-right:.35rem;font-variant-numeric:tabular-nums}
+
+/* 24-hour sky strip (explore page) */
+.skystrip{position:relative;margin:16px 0 0}
+.skystrip svg{display:block;width:100%;height:auto;overflow:visible}
+.skystrip .tw{animation:twk 4s ease-in-out infinite}.skystrip .tw.b{animation-duration:5.6s;animation-delay:1.1s}
+.skystrip .lbl{font:600 11px Arimo,Arial,sans-serif;fill:rgba(255,255,255,.88)}
+.skystrip .lbl.k{fill:#fff;font-weight:700}
+@media (prefers-reduced-motion:reduce){.skystrip .tw{animation:none}}
+
+/* story scene 06: daylight row and map glows follow the sky */
+.sun .sky-row .bar{height:10px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.sun .sky-row small{position:absolute;top:-1.15rem;transform:translateX(-50%);font-size:.66rem;color:rgba(255,255,255,.6);font-variant-numeric:tabular-nums}
+.sun .sunmark{position:absolute;top:50%;width:.95rem;height:.95rem;margin:-.475rem 0 0 -.475rem;border-radius:50%;z-index:1}
+.sun .sunmark.d{background:radial-gradient(circle at 42% 40%,#fffbea,#FFD35C 65%,#ffb06b);box-shadow:0 0 0 3px rgba(255,211,92,.25),0 0 14px 4px rgba(255,211,92,.55)}
+.sun .sunmark.n{box-shadow:inset -.26rem .14rem 0 0 #f6f1df;filter:drop-shadow(0 0 4px rgba(255,246,214,.6))}
+.sun .sky-row{margin-top:1.1rem}
+#map .glow{opacity:0;transition:opacity 2.4s ease;transform-box:fill-box;transform-origin:center}
+#s-bengaluru[data-sky=night] #map .gblr,#s-bengaluru[data-sky=dawn] #map .glon,#s-bengaluru[data-sky=day] #map .glon,#s-bengaluru[data-sky=day] #map .gblr{opacity:1}
+#s-bengaluru[data-sky=dusk] #map .glon{opacity:.5}
+#s-bengaluru .sky~.wrap #map .land{stroke:rgba(255,255,255,.22)}
