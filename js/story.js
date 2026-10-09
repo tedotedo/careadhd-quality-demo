@@ -220,11 +220,11 @@ INIT['s-transition']=()=>{const pl=TA.filter(t=>t.planned),un=TA.filter(t=>!t.pl
       <div class="ax" style="margin-top:.5rem"><span></span><div style="justify-content:flex-start;color:rgba(255,255,255,.75)">UK time. ${h(uk[1]-bl[0])} hours of cover a day, ${h(ov[1]-ov[0])} hours of overlap.</div></div>`}
   tick();setInterval(tick,30000);
   /* one day of follow-the-sun working, told through the sky */
-  const DC=[{ph:'dusk',k:'Evening',t:'18:00 UK',n:'Clinics close. The day\'s records are pseudonymised for the overnight run.',ms:5200},
-    {ph:'night',k:'Overnight',t:'Overnight',n:'The NICE audit and safety checks run. Bengaluru reviews the results from 09:00 IST (04:30 UK).',ms:6200},
-    {ph:'dawn',k:'Dawn',t:'07:00 UK',n:'The worklist is ready before UK clinics open.',ms:5200,rest:1},
-    {ph:'day',k:'Morning',t:'09:00 UK',n:'Clinicians act on their flags. Both teams work together until 13:30 UK.',ms:6200}];
-  const sc=$('#s-bengaluru'),sky=Sky.mount($('#skyBlr'),{scene:sc,seed:5,start:'dusk',pos:{night:[50,124],dawn:[87,95],day:[73,19],dusk:[43,97]},moon:[70,15]});
+  const DC=[{ph:'dusk',k:'Evening',t:'18:00 UK',n:'Clinics close. The day\'s records are pseudonymised for the overnight run.',ms:10000},
+    {ph:'night',k:'Overnight',t:'Overnight',n:'The NICE audit and safety checks run. Bengaluru reviews the results from 09:00 IST (04:30 UK).',ms:11000},
+    {ph:'dawn',k:'Dawn',t:'07:00 UK',n:'The worklist is ready before UK clinics open.',ms:10000,rest:1},
+    {ph:'day',k:'Morning',t:'09:00 UK',n:'Clinicians act on their flags. Both teams work together until 13:30 UK.',ms:11000}];
+  const sc=$('#s-bengaluru'),sky=Sky.mount($('#skyBlr'),{scene:sc,seed:5,start:'dusk',pos:{night:[92,114],dawn:[92,101],day:[92,93],dusk:[92,101]},moon:[72,16]});
   $('#dcyc').innerHTML=DC.map((c,i)=>`<button type="button" data-i="${i}"><i class="ic ${c.ph}"></i>${c.k}</button>`).join('');
   const bt=[...$('#dcyc').children];bt.forEach((b,i)=>b.addEventListener('click',()=>sky.go(i)));
   sky.play(DC,(i,c)=>{bt.forEach((b,j)=>{b.classList.toggle('on',i===j);b.setAttribute('aria-pressed',i===j)});$('#dcnote').innerHTML=`<b>${c.t}</b>${c.n}`});

@@ -226,10 +226,10 @@
 #p-data .points .fz{justify-self:start;margin-top:.1rem}
 
 /* journey: sun and moon nodes, active step follows the sky (see ../css/sky.css) */
-.fl[data-ic=moon]::before{background:transparent;border:0;box-shadow:inset -.36rem .2rem 0 0 #f6f1df;transition:filter .8s}
-.fl[data-ic=sun]::before{background:radial-gradient(circle at 42% 40%,#fffbea,#FFD35C 65%,#ffb06b);border:0;box-shadow:0 0 0 7px rgba(255,211,92,.16);transition:box-shadow .8s}
-.fl .t{transition:color .8s}
-.fl.now .t{color:var(--sun)}
-.fl.now[data-ic=moon]::before{filter:drop-shadow(0 0 7px rgba(255,246,214,.85))}
-.fl.now[data-ic=sun]::before{box-shadow:0 0 0 7px rgba(255,211,92,.22),0 0 26px 8px rgba(255,211,92,.55)}
+.fl[data-ic=moon]::before{background:transparent;border:0;box-shadow:inset -.36rem .2rem 0 0 #e9e6da;transition:filter 2s}
+.fl[data-ic=sun]::before{background:radial-gradient(circle at 45% 42%,#fbf3df,#f1dcaa 70%,#e4c48f);border:0;box-shadow:0 0 0 6px rgba(240,215,160,.1);transition:box-shadow 2s}
+.fl .t{transition:color 2s}
+.fl.now .t{color:#ecd29a}
+.fl.now[data-ic=moon]::before{filter:drop-shadow(0 0 4px rgba(255,246,214,.4))}
+.fl.now[data-ic=sun]::before{box-shadow:0 0 0 6px rgba(240,215,160,.16),0 0 12px 3px rgba(240,215,160,.25)}
 #p-journey .fl p{color:rgba(255,255,255,.84)}

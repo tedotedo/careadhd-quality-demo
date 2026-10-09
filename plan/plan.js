@@ -37,8 +37,8 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return
 
 /* ---------- the whole journey: night, dawn and day behind the flow ---------- */
 if(window.Sky&&$('#skyJourney')){const fl=$$('#jflow .fl');
-  const sky=Sky.mount($('#skyJourney'),{scene:$('#p-journey'),seed:3,start:'night',pos:{night:[50,124],dawn:[88,97],day:[76,25],dusk:[50,102]},moon:[78,18]});
-  sky.play([{ph:'night',f:0,ms:5200},{ph:'dawn',f:1,ms:4600,rest:1},{ph:'day',f:1,ms:5200},{ph:'dusk',f:2,ms:4600},{ph:'night',f:2,ms:4600}],
+  const sky=Sky.mount($('#skyJourney'),{scene:$('#p-journey'),seed:3,start:'night',pos:{night:[88,114],dawn:[88,101],day:[88,92],dusk:[88,101]},moon:[78,18]});
+  sky.play([{ph:'night',f:0,ms:10000},{ph:'dawn',f:1,ms:9000,rest:1},{ph:'day',f:1,ms:10000},{ph:'dusk',f:2,ms:9000},{ph:'night',f:2,ms:9000}],
     (i,c)=>fl.forEach((e,j)=>e.classList.toggle('now',j===c.f)))}
 
 const PH=[

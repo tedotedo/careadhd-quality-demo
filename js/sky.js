@@ -14,11 +14,11 @@ function mount(host,o){o=o||{};const r=rng(o.seed||7);
   host.classList.add('sky');host.setAttribute('aria-hidden','true');
   host.innerHTML=PH.map(p=>`<div class="l ${p}"></div>`).join('')+
     `<div class="stars">${stars(r,34,'s1')}${stars(r,26,'s2')}${stars(r,18,'s3')}</div><div class="hz"></div>`+
-    `<div class="moon"><b></b><i></i></div><div class="orb"><div class="rays"></div><div class="halo"></div><div class="disc"></div><div class="warm"></div></div>`;
-  const pos=Object.assign({night:[50,118],dawn:[84,96],day:[78,16],dusk:[10,96]},o.pos||{}),moon=o.moon||[80,16];
+    `<div class="moon"><b></b><i></i></div><div class="orb"><div class="halo"></div><div class="disc"></div><div class="warm"></div></div>`;
+  const pos=Object.assign({night:[88,114],dawn:[88,101],day:[88,91],dusk:[88,101]},o.pos||{}),moon=o.moon||[80,16];
   host.style.setProperty('--agx',pos.dawn[0]+'%');host.style.setProperty('--dgx',pos.dusk[0]+'%');host.style.setProperty('--ygx',pos.day[0]+'%');host.style.setProperty('--ygy',pos.day[1]+'%');
   function set(p){host.dataset.phase=p;const s=pos[p];host.style.setProperty('--sx',s[0]+'%');host.style.setProperty('--sy',s[1]+'%');
-    const m=p==='night'?moon:p==='dusk'?[moon[0]-10,moon[1]+22]:[moon[0]+12,-30];host.style.setProperty('--mx',m[0]+'%');host.style.setProperty('--my',m[1]+'%');
+    const m=p==='night'?moon:p==='dusk'?[moon[0],moon[1]+8]:[moon[0],moon[1]-30];host.style.setProperty('--mx',m[0]+'%');host.style.setProperty('--my',m[1]+'%');
     if(o.scene)o.scene.dataset.sky=p}
   set(o.start||'night');
   let seq=null,i=0,t=null,vis=false,cb=null;
@@ -43,8 +43,8 @@ function sunTimes(d,lat,lon,tz){const R=Math.PI/180,sin=x=>Math.sin(x*R),cos=x=>
   return{rise:loc(Jt-w/360),set:loc(Jt+w/360)}}
 const LONDON=[51.507,-.128,'Europe/London'];
 /* colour stops for a 24-hour sky, as [minute, colour] */
-function skyStops(st,dark){const r=st.rise,s=st.set,N=dark?'#06202c':'#10283a',D=dark?'#8fcfd6':'#bfe6ea';
-  return[[0,N],[r-75,N],[r-30,'#3a4f78'],[r,'#FF8684'],[r+30,'#FFD35C'],[r+110,D],[s-110,D],[s-30,'#FFD35C'],[s,'#FF8684'],[s+35,'#5a4677'],[s+85,N],[1440,N]]}
+function skyStops(st,dark){const r=st.rise,s=st.set,N=dark?'#06202c':'#10283a',D=dark?'#7fb8bd':'#bfe6ea';
+  return[[0,N],[r-75,N],[r-30,'#34495f'],[r,'#b8988f'],[r+35,'#d6c6a2'],[r+120,D],[s-120,D],[s-35,'#d6c6a2'],[s,'#b8988f'],[s+35,'#3f4760'],[s+85,N],[1440,N]]}
 function cssGradient(st,dark){return'linear-gradient(90deg,'+skyStops(st,dark).map(([m,c])=>`${c} ${(100*Math.max(0,Math.min(1440,m))/1440).toFixed(2)}%`).join(',')+')'}
 const hm=m=>String(Math.floor(m/60)).padStart(2,'0')+':'+String(Math.round(m%60)).padStart(2,'0');
 const nowMin=(tz,d)=>{const [h,m]=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:tz}).format(d||new Date()).split(':').map(Number);return(h%24)*60+m};
@@ -53,8 +53,8 @@ function upperStops(st){const r=st.rise,s=st.set,N='#0f2436',D='#a9dbe4';
   return[[0,N],[r-85,N],[r-30,'#33507e'],[r+15,'#8d9fc4'],[r+70,'#9fd0dd'],[r+120,D],[s-120,D],[s-70,'#9fcbd8'],[s-10,'#9a93b8'],[s+30,'#3d3d6c'],[s+85,N],[1440,N]]}
 /* 24-hour sky strip with the sun's arc, for the light explore page */
 function strip(el,o){o=o||{};const st=sunTimes(new Date(),LONDON[0],LONDON[1],LONDON[2]);const q=/[?&]skynow=(\d\d):(\d\d)/.exec(location.search),fixed=q?+q[1]*60+ +q[2]:o.now;let now=fixed!=null?fixed:nowMin(LONDON[2]);
-  const H=128,G=26,PAD=0;let W=0,anim=null;
-  function draw(t){W=el.clientWidth||900;const x=m=>PAD+(W-2*PAD)*m/1440,sky=H-G,r=st.rise,s=st.set,top=20;
+  const H=128,G=26,PAD=0;let W=0;
+  function draw(t){W=el.clientWidth||900;const x=m=>PAD+(W-2*PAD)*m/1440,sky=H-G,r=st.rise,s=st.set,top=52;
     const arcY=m=>{const u=(m-r)/(s-r);return sky-(sky-top)*Math.sin(Math.PI*Math.max(0,Math.min(1,u)))};
     const stops=upperStops(st).map(([m,c])=>`<stop offset="${(Math.max(0,Math.min(1440,m))/1440).toFixed(4)}" stop-color="${c}"/>`).join('');
     const R=rng(11);let sts='';for(let i=0;i<70;i++){let m=R()*1440;if(m>r-50&&m<s+60)continue;const y=6+Math.pow(R(),1.5)*(sky-24);sts+=`<circle class="tw${i%2?' b':''}" style="animation-delay:${(R()*3).toFixed(2)}s" cx="${x(m).toFixed(1)}" cy="${y.toFixed(1)}" r="${(.6+R()*1.1).toFixed(2)}" fill="#fff" opacity="${(.4+R()*.6).toFixed(2)}"/>`}
@@ -64,23 +64,22 @@ function strip(el,o){o=o||{};const st=sunTimes(new Date(),LONDON[0],LONDON[1],LO
     el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="UK sky today: sunrise ${hm(r)}, sunset ${hm(s)}, British Summer Time">
 <defs><linearGradient id="sk" x1="0" x2="1">${stops}</linearGradient>
 <linearGradient id="sv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#001a24" stop-opacity=".45"/><stop offset=".75" stop-color="#fff" stop-opacity="0"/></linearGradient>
-<radialGradient id="sg"><stop offset="0" stop-color="#fff4cf" stop-opacity=".95"/><stop offset=".25" stop-color="#FFD35C" stop-opacity=".55"/><stop offset=".6" stop-color="#FF8684" stop-opacity=".18"/><stop offset="1" stop-color="#FF8684" stop-opacity="0"/></radialGradient>
-<radialGradient id="sd" cx=".42" cy=".4"><stop offset="0" stop-color="#fffbea"/><stop offset=".6" stop-color="#FFD35C"/><stop offset="1" stop-color="#ffb06b"/></radialGradient>
-<radialGradient id="hzg"><stop offset="0" stop-color="#ffe6a6" stop-opacity="1"/><stop offset=".3" stop-color="#FFD35C" stop-opacity=".75"/><stop offset=".62" stop-color="#FF8684" stop-opacity=".38"/><stop offset="1" stop-color="#F0B0C8" stop-opacity="0"/></radialGradient>
-<radialGradient id="hzc"><stop offset="0" stop-color="#fff3c4"/><stop offset=".45" stop-color="#FFD35C" stop-opacity=".8"/><stop offset="1" stop-color="#FF8684" stop-opacity="0"/></radialGradient><clipPath id="skc"><rect width="${W}" height="${sky+12}" rx="10"/></clipPath></defs>
+<radialGradient id="sg"><stop offset="0" stop-color="#fbf3df" stop-opacity=".6"/><stop offset=".5" stop-color="#f1dcaa" stop-opacity=".18"/><stop offset="1" stop-color="#f1dcaa" stop-opacity="0"/></radialGradient>
+<radialGradient id="sd" cx=".45" cy=".42"><stop offset="0" stop-color="#fbf3df"/><stop offset=".7" stop-color="#f1dcaa"/><stop offset="1" stop-color="#e4c48f"/></radialGradient>
+<radialGradient id="hzg"><stop offset="0" stop-color="#ead7b4" stop-opacity=".55"/><stop offset=".45" stop-color="#d4aea0" stop-opacity=".22"/><stop offset="1" stop-color="#c9a9b6" stop-opacity="0"/></radialGradient>
+<radialGradient id="hzc"><stop offset="0" stop-color="#f3e6c8" stop-opacity=".5"/><stop offset="1" stop-color="#e0c2a8" stop-opacity="0"/></radialGradient><clipPath id="skc"><rect width="${W}" height="${sky+12}" rx="10"/></clipPath></defs>
 <g clip-path="url(#skc)"><rect width="${W}" height="${sky}" fill="url(#sk)"/><rect width="${W}" height="${sky}" fill="url(#sv)"/>${sts}
-${[r,s].map((m,k)=>`<ellipse cx="${x(m)}" cy="${sky}" rx="${W*.13}" ry="${sky*1.05}" fill="url(#hzg)"/><ellipse cx="${x(m)}" cy="${sky}" rx="${W*.05}" ry="${sky*.42}" fill="url(#hzc)" opacity="${k?.8:.95}"/>`).join('')}
+${[r,s].map((m,k)=>`<ellipse cx="${x(m)}" cy="${sky}" rx="${W*.09}" ry="${sky*.6}" fill="url(#hzg)"/><ellipse cx="${x(m)}" cy="${sky}" rx="${W*.04}" ry="${sky*.3}" fill="url(#hzc)" opacity="${k?.8:.95}"/>`).join('')}
 <path d="${arc}" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.5" stroke-dasharray="2 6" stroke-linecap="round"/>
-<g opacity="${day?1:0}"><circle cx="${sx}" cy="${sy}" r="58" fill="url(#sg)"/>${Array.from({length:12},(_,k)=>{const a=k*Math.PI/6;return`<line x1="${(sx+Math.cos(a)*18).toFixed(1)}" y1="${(sy+Math.sin(a)*18).toFixed(1)}" x2="${(sx+Math.cos(a)*27).toFixed(1)}" y2="${(sy+Math.sin(a)*27).toFixed(1)}" stroke="#FFD35C" stroke-width="2" stroke-linecap="round" opacity=".85"/>`}).join('')}<circle cx="${sx}" cy="${sy}" r="12.5" fill="url(#sd)"/></g>
-<g opacity="${day?0:1}"><circle cx="${sx}" cy="${my}" r="20" fill="#dce8ff" opacity=".14"/><path d="M${sx+3} ${my-9}a9 9 0 1 0 6 15 7.2 7.2 0 1 1-6-15z" fill="#f6f1df"/></g></g>
+<g opacity="${day?1:0}"><circle cx="${sx}" cy="${sy}" r="24" fill="url(#sg)"/><circle cx="${sx}" cy="${sy}" r="7.5" fill="url(#sd)"/></g>
+<g opacity="${day?0:1}"><circle cx="${sx}" cy="${my}" r="16" fill="#dce8ff" opacity=".07"/><path d="M${sx+3} ${my-9}a9 9 0 1 0 6 15 7.2 7.2 0 1 1-6-15z" fill="#e9e6da" opacity=".85"/></g></g>
 <rect y="${sky}" width="${W}" height="${G}" rx="10" fill="#006165"/><rect y="${sky}" width="${W}" height="${G-10}" fill="#006165"/><rect y="${sky}" width="${W}" height="1.5" fill="url(#sk)"/>
 <text class="lbl" x="${x(r)}" y="${sky+17}" text-anchor="middle">Sunrise ${hm(r)}</text><text class="lbl" x="${x(s)}" y="${sky+17}" text-anchor="middle">Sunset ${hm(s)}</text>
 <text class="lbl k" x="${Math.min(W-30,Math.max(30,sx))}" y="${sky+17}" text-anchor="middle" opacity="${Math.abs(sx-x(r))<70||Math.abs(sx-x(s))<70?0:1}">Now ${hm(t)}</text></svg>`}
-  function run(){if(reduce||o.static||q){draw(now);return}const t0=performance.now(),from=st.rise,to=now<st.rise?now+1440:now,D=2600;
-    const f=ts=>{const u=Math.min(1,(ts-t0)/D),e=1-Math.pow(1-u,3);draw((from+(to-from)*e)%1440);if(u<1)anim=requestAnimationFrame(f)};anim=requestAnimationFrame(f)}
-  draw(st.rise);let started=false;
+  function run(){draw(now);const sv=el.querySelector('svg');if(reduce||o.static||q||!sv)return;sv.style.opacity=0;sv.style.transition='opacity 2.5s ease-in-out';requestAnimationFrame(()=>requestAnimationFrame(()=>{sv.style.opacity=1}))}
+  draw(now);let started=false;
   new IntersectionObserver(es=>{if(es[0].isIntersecting&&!started){started=true;run()}},{threshold:.4}).observe(el);
-  addEventListener('resize',()=>{if(!anim||started)draw(now)});
+  addEventListener("resize",()=>draw(now));
   if(fixed==null)setInterval(()=>{now=nowMin(LONDON[2]);if(started)draw(now)},60000);
   return{st,draw}}
 
