@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>First 90 days · A pilot proposal for Care ADHD by Dr Mark Aszkenasy</title>
+<meta name="description" content="A 90-day pilot proposal: a nightly NICE audit and safety worklist for children and young people on ADHD medication, from titration to shared care. Prepared by Dr Mark Aszkenasy for discussion with Care ADHD. Not an official Care ADHD website.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Familjen+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23006165%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%227%22 fill=%22%23FF8684%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../css/story.css">
+<link rel="stylesheet" href="plan.css">
+</head>
+<body class="plan">
+<header class="hdr" id="hdr">
+  <a class="logo" href="#p-open"><span class="mark"></span><span>First 90 days</span></a>
+  <nav class="hnav"><a href="../">The concept demo</a><a href="90-day-pilot-proposal.pdf" download>PDF</a><button type="button" id="presentBtn" title="Full screen. Use the arrow keys or space to move between scenes.">Present</button></nav>
+  <div class="prog"><i id="prog"></i></div>
+</header>
+<nav class="dots" id="dots" aria-label="Scenes"></nav>
+
+<main id="story">
+
+<!-- 1 OPENING -->
+<section class="scene dark" id="p-open" data-name="The proposal">
+  <canvas id="flow" aria-hidden="true"></canvas>
+  <div class="wrap open">
+    <p class="eyebrow rv">A pilot proposal for Care ADHD · Dr Mark Aszkenasy · Monday 12 October 2026</p>
+    <h1 class="rv">First 90 days. <span>One pathway, checked every night.</span></h1>
+    <p class="sub lead rv">Take the nightly NICE audit and safety worklist from the demo into live use for <b>children and young people on ADHD medication, from titration through stable dose to shared care with the GP</b>. Prove it there, then extend.</p>
+    <div class="weeks13 rv" aria-hidden="true" id="weeks13"></div>
+    <p class="cue rv"><kbd>→</kbd> or <kbd>space</kbd> to present · scroll to read</p>
+  </div>
+</section>
+
+<!-- 2 WHY NOW -->
+<section class="scene paper" id="p-why" data-name="Why now">
+  <div class="wrap g2 why">
+    <div class="copy">
+      <p class="eyebrow rv">01 · Why now</p>
+      <h2 class="rv">We can show commissioners exactly what they're paying for.</h2>
+      <p class="sub rv">The final Fonagy report was published on 9 October 2026. This pilot produces the assurance evidence it asks for, for commissioners and CQC.</p>
+      <a class="report rv" href="https://www.gov.uk/government/publications/independent-review-into-mental-health-conditions-adhd-and-autism-final-report" target="_blank" rel="noopener"><span class="src">GOV.UK · DHSC · Published 9 October 2026</span><b>Independent review into mental health conditions, ADHD and autism: final report</b><span class="go">Fonagy 2026 · read the report ↗</span></a>
+    </div>
+    <ol class="points">
+      <li class="rv"><b>Over half</b><p>of NHS-funded ADHD assessments are carried out by independent providers. Commissioners often cannot see what they are paying for.</p></li>
+      <li class="rv"><b>Regulation</b><p>All ADHD and autism assessments will become CQC-regulated, and ICBs must tighten oversight.</p></li>
+      <li class="rv"><b>Outcomes</b><p>Timely medication reviews, safe deprescribing, long-term management in primary care where required, and outcomes measured by participation and quality of life, not activity.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 3 PATHWAY -->
+<section class="scene" id="p-path" data-name="The pathway">
+  <div class="wrap stack">
+    <div class="copy narrow">
+      <p class="eyebrow rv">02 · What the audit checks</p>
+      <h2 class="rv">From first dose to the GP, every check in one place.</h2>
+      <p class="sub rv">The rules come from NICE NG87 and are explainable, with no machine learning. Clinicians make every decision.</p>
+    </div>
+    <figure class="vis path rv" id="path">
+      <div class="ptrack"><span class="pbase"></span><span class="pline"></span></div>
+      <ol class="stations">
+        <li style="--i:0"><i class="node"></i><b>Titration</b><span class="when">and follow-up</span><ul><li>Height</li><li>Weight</li><li>Heart rate</li><li>Blood pressure</li><li>Response</li><li>Side effects</li></ul><em>NG87 checks recorded when due</em></li>
+        <li style="--i:1"><i class="node"></i><b>Stable dose</b><span class="when">added in weeks 3 to 10</span><ul><li>Treatment break considered and discussed with the family</li></ul><em>A prompt, not a push</em><a class="fz" href="https://www.gov.uk/government/publications/independent-review-into-mental-health-conditions-adhd-and-autism-final-report" target="_blank" rel="noopener" title="Independent review into mental health conditions, ADHD and autism: final report (9 October 2026)"><span>Fonagy 2026</span>Safe deprescribing</a></li>
+        <li style="--i:2"><i class="node"></i><b>Annual review</b><span class="when">NG87 1.10.1</span><ul><li>Flagged at 11 months, before it falls overdue</li></ul><a class="fz" href="https://www.gov.uk/government/publications/independent-review-into-mental-health-conditions-adhd-and-autism-final-report" target="_blank" rel="noopener" title="Independent review into mental health conditions, ADHD and autism: final report (9 October 2026)"><span>Fonagy 2026</span>Timely medication review</a></li>
+        <li style="--i:3"><i class="node"></i><b>Shared-care readiness</b><span class="when">'ready to transfer' list</span><ul><li>Stable dose for at least 3 months</li><li>Monitoring complete and in range</li><li>No unresolved side effects</li><li>GP agreement</li><li>Family understanding</li></ul><em>Gaps shown for children nearly ready</em></li>
+        <li style="--i:4"><i class="node"></i><b>GP shared care</b><span class="when">after transfer</span><ul><li>GP monitoring results come back to us</li></ul><em>Checked nightly</em><a class="fz" href="https://www.gov.uk/government/publications/independent-review-into-mental-health-conditions-adhd-and-autism-final-report" target="_blank" rel="noopener" title="Independent review into mental health conditions, ADHD and autism: final report (9 October 2026)"><span>Fonagy 2026</span>Long-term care in primary care</a></li>
+      </ol>
+    </figure>
+  </div>
+</section>
+
+<!-- 4 VALUE -->
+<section class="scene mint" id="p-value" data-name="Value up front">
+  <div class="wrap stack">
+    <div class="copy narrow">
+      <p class="eyebrow rv">03 · Value agreed up front · Principle 2</p>
+      <h2 class="rv">Fix the measures before anything goes live.</h2>
+      <p class="sub rv">Measures and baseline in weeks 0 to 2. Targets are agreed then, not guessed now.</p>
+    </div>
+    <div class="tiles" id="tiles">
+      <div class="tile rv"><span class="k">Monitoring completeness</span><p>Children with the NG87 checks recorded when due. Baseline vs day 90.</p><div class="bl"><i>Baseline</i><b>weeks 0–2</b></div></div>
+      <div class="tile rv"><span class="k">Annual reviews on time</span><p>% of children on a stable dose reviewed within 12 months</p><div class="bl"><i>Baseline</i><b>weeks 0–2</b></div></div>
+      <div class="tile rv"><span class="k">Shared care</span><p>% of eligible children transferred to shared care</p><div class="bl"><i>Baseline</i><b>weeks 0–2</b></div></div>
+      <div class="tile rv"><span class="k">Time to action</span><p>Days from a standard being missed to a clinician acting on it</p><div class="bl"><i>Baseline</i><b>weeks 0–2</b></div></div>
+      <div class="tile rv"><span class="k">Clinician time and flag accuracy</span><p>Minutes per flag, and the share of flags clinicians judge to be a true miss</p><div class="bl"><i>Baseline</i><b>weeks 0–2</b></div></div>
+      <div class="tile rv"><span class="k">Safety</span><p>Incidents or near misses linked to the tool, from the hazard log</p><div class="bl"><i>Baseline</i><b>weeks 0–2</b></div></div>
+      <div class="tile out rv"><span class="k">One outcome measure</span><p>A participation or quality-of-life measure, baselined in weeks 0 to 2 and repeated at review: school attendance, or a functional score like WFIRS-P.</p><p class="note">Ninety days sets the baseline; change takes longer.</p><a class="fz" href="https://www.gov.uk/government/publications/independent-review-into-mental-health-conditions-adhd-and-autism-final-report" target="_blank" rel="noopener" title="Independent review into mental health conditions, ADHD and autism: final report (9 October 2026)"><span>Fonagy 2026</span>Participation and quality of life, not activity</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 JOURNEY -->
+<section class="scene dark" id="p-journey" data-name="The whole journey">
+  <div class="wrap stack">
+    <div class="copy narrow">
+      <p class="eyebrow rv">04 · The whole journey · Principle 1</p>
+      <h2 class="rv">Who acts, and what they see.</h2>
+      <p class="sub rv">Every flag has a named owner and an escalation route.</p>
+    </div>
+    <div class="flow" id="jflow">
+      <div class="fl rv"><span class="t">Overnight</span><b>The audit runs</b><p>On pseudonymised data. The worklist is ready by the UK morning.</p></div>
+      <div class="fl hi rv"><span class="t">UK morning</span><b>Treating clinician</b><p>Sees their own patients' flags with the standard, the evidence and the gap. Signs off each one: action taken, or not applicable with a reason.</p></div>
+      <div class="fl rv"><span class="t">Next night</span><b>The audit checks again</b><p>Confirms whether the gap has closed. Unactioned flags escalate to the pathway clinical lead after an agreed interval.</p></div>
+      <div class="fl rv"><span class="t">Ready list</span><b>GP</b><p>Receives a shared-care request only for children on the ready list. Returned results are checked nightly.</p></div>
+      <div class="fl rv"><span class="t">Oversight</span><b>Lead, committee, board</b><p>Pathway lead: compliance by standard and team. Governance committee: a monthly report. Board and commissioners: a short assurance summary.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 GOVERNANCE -->
+<section class="scene paper" id="p-gov" data-name="Governance">
+  <div class="wrap stack">
+    <div class="copy narrow">
+      <p class="eyebrow rv">05 · Governance from day one</p>
+      <h2 class="rv">Signed off before anything goes live.</h2>
+    </div>
+    <figure class="vis gantt rv" id="gantt"></figure>
+  </div>
+</section>
+
+<!-- 7 THIRTEEN WEEKS -->
+<section class="scene deep dark" id="p-weeks" data-name="The 13 weeks">
+  <div class="wrap stack">
+    <div class="copy narrow">
+      <p class="eyebrow rv">06 · The 13 weeks</p>
+      <h2 class="rv">Four phases, then a decision.</h2>
+    </div>
+    <div class="phases rv" id="phases"></div>
+  </div>
+</section>
+
+<!-- 8 RISKS -->
+<section class="scene" id="p-risks" data-name="Risks">
+  <div class="wrap g2 risksg">
+    <div class="copy">
+      <p class="eyebrow rv">07 · Risks</p>
+      <h2 class="rv">What could go wrong, and what we do about it.</h2>
+      <p class="sub rv">Start narrow. Measure in shadow mode first. Review weekly.</p>
+    </div>
+    <ul class="risks">
+      <li class="rv"><b>Data quality</b><span>Monitoring may sit in free-text letters, so the audit undercounts.</span><em>Shadow mode measures this before go-live.</em></li>
+      <li class="rv"><b>Alert fatigue</b><span>Too many flags and clinicians stop reading them.</span><em>Start narrow, track accuracy weekly, a named owner for every flag.</em></li>
+      <li class="rv"><b>GP capacity</b><span>Some practices will decline shared care.</span><em>The readiness list shows where. It does not solve it.</em></li>
+      <li class="rv"><b>Cross-border data</b><span>India has no UK adequacy decision.</span><em>Transfers are settled before identifiable data moves.</em></li>
+      <li class="rv"><b>Key-person dependency</b><span>I am part-time.</span><em>The product owner and champions carry the day-to-day work.</em></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 9 PEOPLE -->
+<section class="scene mint" id="p-people" data-name="People">
+  <div class="wrap stack">
+    <div class="copy narrow">
+      <p class="eyebrow rv">08 · Owners and champions · Principles 3, 4 and 5</p>
+      <h2 class="rv">Named owners. Protected time.</h2>
+    </div>
+    <div class="peopleg">
+      <div class="lcol">
+      <aside class="bio rv">
+        <div class="who"><span class="av">MA</span><div><b>Dr Mark Aszkenasy</b><span>Clinical lead for the pilot</span></div></div>
+        <p>Senior clinical adviser on an agreed sessional basis. I own the rule specifications and clinical sign-off of the logic.</p>
+        <p>I have a long-standing interest in large data and clinical epidemiology. Before returning to paediatrics, I was a senior registrar in public health medicine at the Communicable Disease Surveillance Centre (CDSC), analysing the data that helped make the case for introducing the routine pneumococcal vaccine for children.</p>
+      </aside>
+        <div class="split rv">
+          <div class="role uk"><b>UK</b><span>Own clinical sign-off and act on flags.</span></div>
+          <div class="role blr"><b>Bengaluru GCC</b><span>Data engineering, rule build and testing, overnight run monitoring and data-quality checks, so the worklist is ready for the UK morning.</span></div>
+        </div>
+      </div>
+      <div class="roles">
+        <div class="role rv"><b>Executive sponsor</b><span>CEO, until the Director of AI and Data Science is in post.</span></div>
+        <div class="role rv"><b>Product owner</b><span>One named person who owns the NICE audit as a product after day 90, with a backlog and change control through the safety case.</span></div>
+        <div class="role rv"><b>Clinical champions</b><span>Three or four clinicians on the pathway, with protected time and funded clinical safety and data training. They shape the worklist and test it first.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 DAY 90 -->
+<section class="scene dark" id="p-day90" data-name="Day 90 and beyond">
+  <div class="wrap stack">
+    <div class="copy narrow">
+      <p class="eyebrow rv">09 · Decision at day 90</p>
+      <h2 class="rv">Scale, adjust or stop.</h2>
+    </div>
+    <div class="d90">
+      <div class="fork rv" id="fork">
+        <svg aria-hidden="true"><path class="br b1"/><path class="br b2"/></svg>
+        <div class="fk day"><b>Day 90</b><span>Compare against baseline</span></div>
+        <div class="fk scale"><b>Scale</b><span>Across the children's ADHD pathway, then adult ADHD, autism and the combined pathway.</span></div>
+        <div class="fk stop"><b>Adjust or stop</b><span>If the measures do not move, or the burden on clinicians outweighs the benefit, we say so and change course.</span></div>
+      </div>
+      <div class="next">
+        <p class="nlab rv">Next, on the same foundations</p>
+        <div class="ncard rv"><b>Assessment quality audit</b><p>Check each assessment for informant input from parent and school, developmental history, a face-to-face or observed element, screening for co-occurring conditions and review of prior records. Letter extraction becomes the enabler.</p><a class="fz" href="https://www.gov.uk/government/publications/independent-review-into-mental-health-conditions-adhd-and-autism-final-report" target="_blank" rel="noopener" title="Independent review into mental health conditions, ADHD and autism: final report (9 October 2026)"><span>Fonagy 2026</span>Misdiagnosis risk rises with brief or fragmented assessment</a></div>
+        <div class="ncard rv"><b>Needs-led waiting-list triage</b><p>Urgency and complexity scoring from referral information. A clinician confirms every reprioritisation. Fairness checks across deprivation and ethnicity before go-live. Its own DPIA and MHRA check.</p><a class="fz" href="https://www.gov.uk/government/publications/independent-review-into-mental-health-conditions-adhd-and-autism-final-report" target="_blank" rel="noopener" title="Independent review into mental health conditions, ADHD and autism: final report (9 October 2026)"><span>Fonagy 2026</span>Rec 2: needs-led prioritisation, using digital tools and AI</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 CLOSE -->
+<section class="scene paper" id="p-close" data-name="For Monday">
+  <div class="wrap g2 closeg">
+    <div class="copy">
+      <p class="eyebrow rv">10 · For discussion on Monday</p>
+      <h2 class="rv">Three questions to settle.</h2>
+      <div class="cta rv">
+        <a class="btn" href="90-day-pilot-proposal.pdf" download>Download the proposal (PDF)</a>
+        <a class="btn ghost dk" href="../">See the concept demo</a>
+      </div>
+      <p class="fine rv">The concept demo uses synthetic data only. · <a href="https://www.gov.uk/government/publications/independent-review-into-mental-health-conditions-adhd-and-autism-final-report" target="_blank" rel="noopener">Fonagy final report, GOV.UK ↗</a></p>
+    </div>
+    <ol class="qs">
+      <li class="rv"><p>My role, time commitment and reporting line, including once the Director is appointed.</p></li>
+      <li class="rv"><p>Who acts as Clinical Safety Officer and Caldicott Guardian for the pilot.</p></li>
+      <li class="rv"><p>Which clinical system and data we can access, and which commissioners should see the first assurance report.</p></li>
+    </ol>
+  </div>
+</section>
+</main>
+
+<p class="badge" id="badge">A proposal by Dr Mark Aszkenasy for discussion with Care ADHD. Not an official Care ADHD website.</p>
+<p class="hint" id="hint">← → or space to move · F full screen · Esc to leave</p>
+<script src="plan.js"></script>
+</body>
+</html>

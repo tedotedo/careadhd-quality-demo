@@ -29,3 +29,5 @@ body.explore{background:#fff}
 .xfoot{border-top:1px solid var(--line);padding:22px 0;font-size:.85rem;color:var(--muted);background:#fff}
 @media(max-width:1000px){.xgrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.xgrid{grid-template-columns:1fr}.xbar .brand small{display:none}.xbar nav a:not(.story){display:none}.pager{flex-direction:column}.pager a{max-width:100%}.pager a.nx{margin-left:0}}
+
+.planlink{display:inline-block;margin-left:14px;font-size:.88rem;font-weight:700;color:var(--teal);text-decoration:none;border-bottom:1px solid transparent}.planlink span{color:var(--coral)}.planlink:hover{border-bottom-color:currentColor}
