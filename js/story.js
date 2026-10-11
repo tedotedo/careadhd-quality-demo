@@ -1,4 +1,4 @@
-/* Story page: eight scenes, one idea each. Every figure comes from the synthetic cohort built in app.js / audit.js.
+/* Story page: nine scenes, one idea each. Every figure comes from the synthetic cohort built in app.js / audit.js.
    Concept demo by Dr Mark Aszkenasy. No real patient information. */
 'use strict';
 (function(){
